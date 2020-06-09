@@ -2,9 +2,9 @@ library(data.table)
 library(tidyverse)
 library(sqldf)
 
-f <- "E:/national/VM2--WI--2020-03-21/VM2--WI--2020-03-21-DEMOGRAPHIC.tab"
+f <- "D:/national/VM2--WI--2020-03-21/VM2--WI--2020-03-21-DEMOGRAPHIC.tab"
 
-k <- fread(f,
+k <- fread(f, 
   select = c("LALVOTERID", "Voters_Active", 
          "Voters_StateVoterID", "Voters_CountyVoterID", 
          "Residence_Addresses_CensusTract",
@@ -19,7 +19,7 @@ k <- fread(f,
          "State_Senate_District", "State_House_District", 
          "State_Legislative_District", "County", "Voters_FIPS", 
          "Precinct", "CommercialData_EstimatedHHIncome",
-         "CommercialData_Education"))
+         "CommercialData_Education", "Residence_Addresses_City"))
 
 f <- "E:/national/VM2--WI--2020-03-21/VM2--WI--2020-03-21-VOTEHISTORY.tab"
 
