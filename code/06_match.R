@@ -1,72 +1,73 @@
 ## this can be run locally or on NYU's HPC. Set option in next step
 ## option allowed because of how long GenMatch can take
-
-on_nyu <- F
-
-if(on_nyu){
-  library(Matching)
-  library(data.table)
-  library(snow)
-  library(parallel)
-  library(scales)
-  library(kableExtra)
-  library(tidyverse)
-  
-  setwd("/scratch/km3815/nyc_displ")
-  
-  NodeFile = Sys.getenv("MY_HOSTFILE")
-  
-  
-  cl <- makeCluster(c(readLines(NodeFile)), type="SOCK")
-}else{
-  source("./code/misc/AutoCluster4.R")
-  cl <- NCPUS(detectCores() - 1)
-}
-
-match_data <- readRDS("./temp/match_data.rds")
-
-ids <- match_data %>% 
-  mutate(id = row_number()) %>% 
-  select(id, LALVOTERID)
-
-X <- match_data %>% 
-  select(-LALVOTERID,
-         -primary_20,
-         -mke,
-         -distance_border)
-
-
-genout <- readRDS("./temp/wi_genout")
-
-mout <- Matchby(Tr = match_data$mke, X = X,
-                by = c(X$primary_18,
-                       X$primary_16,
-                       X$dem,
-                       X$rep), estimand = "ATT", Weight.matrix = genout, M = 2)
-
-save(mout, file = "./temp/mout_wi.RData")
+# 
+# on_nyu <- F
+# 
+# if(on_nyu){
+#   library(Matching)
+#   library(data.table)
+#   library(snow)
+#   library(parallel)
+#   library(scales)
+#   library(kableExtra)
+#   library(tidyverse)
+#   
+#   setwd("/scratch/km3815/nyc_displ")
+#   
+#   NodeFile = Sys.getenv("MY_HOSTFILE")
+#   
+#   
+#   cl <- makeCluster(c(readLines(NodeFile)), type="SOCK")
+# }else{
+#   source("./code/misc/AutoCluster4.R")
+#   cl <- NCPUS(detectCores() - 1)
+# }
+# 
+# match_data <- readRDS("./temp/match_data.rds")
+# 
+# ids <- match_data %>% 
+#   mutate(id = row_number()) %>% 
+#   select(id, LALVOTERID)
+# 
+# X <- match_data %>% 
+#   select(-LALVOTERID,
+#          -primary_20,
+#          -mke,
+#          -distance_border)
+# 
+# 
+# genout <- readRDS("./temp/wi_genout")
+# 
+# mout <- Matchby(Tr = match_data$mke, X = X,
+#                 by = c(X$primary_18,
+#                        X$primary_16,
+#                        X$dem,
+#                        X$rep), estimand = "ATT", Weight.matrix = genout, M = 2)
+# 
+# save(mout, file = "./temp/mout_wi.RData")
 
 ###############################
 
-roll <- readRDS("./temp/match_data.rds")
+roll <- readRDS("./temp/match_data.rds") %>% 
+  select(-age)
 
 roll <- roll[complete.cases(roll), ] %>% 
   mutate(id = row_number())
 
-load("./temp/mout_wi.RData")
+load("./temp/mout_wi_no_age.RData")
 
-varnames <- c("age", "primary_18", "primary_16", "white", "black",
+varnames <- c("primary_18", "primary_16", "white", "black",
               "latino", "asian", "income", "college", "dem",
               "rep", "male")
 
-# # this takes hours
-# balance <- MatchBalance(mke ~ age + primary_18 + primary_16 + white +
+# this takes hours
+# balance <- MatchBalance(mke ~ primary_18 + primary_16 + white +
 #                           white + black + latino + asian + income + college +
 #                           dem + rep + male,
 #                         data = roll, match.out = mout)
-# saveRDS(balance, "./temp/balance_table_full_match.rds")
+# saveRDS(balance, "./temp/balance_table_full_match_no_age.rds")
 
-balance <- readRDS("./temp/balance_table_full_match.rds")
+balance <- readRDS("./temp/balance_table_full_match_no_age.rds")
 
 TrMean <- c()
 PreMean <- c()
@@ -131,7 +132,7 @@ df <- df %>%
 
 colnames(df) <- c("", "Treated", "Control", "Treated", "Control", "Mean Diff", "eQQ Med", "eQQ Mean", "eQQ Max")
 
-saveRDS(df, "./temp/balance_table_full.rds")
+saveRDS(df, "./temp/balance_table_full_no_age.rds")
 
 #########################
 j <- knitr::kable(df, booktabs = T, caption = "(\\#tab:full-bal) Balance Table", linesep = "") %>% 
@@ -169,6 +170,4 @@ ids <- data.table(id = c(matches$treated, matches$control),
                   weights = rep(matches$weight, 2),
                   distance = rep(matches$dist, 2))
 
-ids <- left_join(ids, roll, by = "id")
-
-saveRDS(ids, "./temp/reg_data.rds")
+saveRDS(ids, "./temp/reg_data_no_age.rds")
