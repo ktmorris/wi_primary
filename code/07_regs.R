@@ -60,7 +60,7 @@ m4 <- lm(primary_20 ~ mke * black +
 stargazer(m1, m2, m3, m4,
           header = F,
           type = "text", notes.align = "l",
-          covariate.labels = c("Lives in MKE", "Black", "Black × Lives in MKE"),
+          covariate.labels = c("Lives in MKE", "Black", "Black $\\times$ Lives in MKE"),
           dep.var.labels = c("Turnout"),
           title = "\\label{tab:reg-table} Turnout in 2020 Primary",
           table.placement = "H",
@@ -69,7 +69,7 @@ stargazer(m1, m2, m3, m4,
                    "latino", "asian", "income", "college", "dem",
                    "rep", "male", "County"),
           table.layout = "-cmd#-t-a-s-n",
-          out = "./temp/ccc.tex",
+          out = "./temp/reg_table.tex",
           out.header = F,
           notes = "TO REPLACE",
           se = list(coef(summary(m1, cluster = c("group")))[, 2],
@@ -125,27 +125,29 @@ saveRDS(cints, "./temp/cints_no_age_interaction.rds")
 
 ##############################################
 cints <- readRDS("./temp/cints_no_age_interaction.rds") %>% 
-  mutate(type = ifelse(type == "overall", "Lives in MKE",
-                       "Black × Lives in MKE"))
+  mutate(type = ifelse(type == "overall", "Effect for\nNon-Black Voters",
+                       "Additional Effect for\nBlack Voters"))
 
-cints$type <- relevel(as.factor(cints$type), ref = "Lives in MKE")
+cints$type <- relevel(as.factor(cints$type), ref = "Effect for\nNon-Black Voters")
 
 plot <- ggplot(filter(cints)) +
   geom_errorbar(aes(x = distance,
-                    ymin = lower, ymax = upper, color = type), width = .2) +
-  geom_line(aes(x = distance, y = estimate, linetype = type, color = type)) + 
-  geom_point(aes(x = distance, y = estimate, color = type, shape = type), size = 3) + 
+                    ymin = lower, ymax = upper), size = 0.2) +
+  geom_line(aes(x = distance, y = estimate, linetype = type), size = 0.2) + 
+  geom_point(aes(x = distance, y = estimate, shape = type), size = 1.5) + 
   theme_bw() +
   labs(y = "Estimated Coefficient",
        x = "Maximum Distance Between Control and Treated Voters (Miles)",
-       caption = "Notes: 95% confidence bars shown.",
-       color = "Variable",
-       shape = "Variable",
-       linetype = "Variable") +
+       caption = "Notes: 95% confidence bars shown.\n\"Effect for Non-Black Voters\" refers to the variable \"Lives in MKE,\"
+while \"Additional Effect for Black Voters\" refers to \"Black × Lives in MKE.\"
+The overall effect for Black voters is therefore the sum of both estimates.",
+       shape = "Group",
+       linetype = "Group") +
   scale_y_continuous(labels = scales::percent, breaks = seq(-.15, .1, 0.05)) +
   scale_x_continuous(breaks = seq(0, 12, 2)) +
   theme(text = element_text(family = "LM Roman 10"),
-        plot.caption = element_text(hjust = 0)) +
+        plot.caption = element_text(hjust = 0),
+        legend.key.size = unit(2, 'lines')) +
   scale_color_manual(values = c("gray", "black")) +
   geom_hline(yintercept = 0, linetype = "dashed")
 
