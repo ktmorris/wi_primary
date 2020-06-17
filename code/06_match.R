@@ -1,5 +1,5 @@
-## this can be run locally or on NYU's HPC. Set option in next step
-## option allowed because of how long GenMatch can take
+# ## this can be run locally or on NYU's HPC. Set option in next step
+# ## option allowed because of how long GenMatch can take
 # 
 # on_nyu <- F
 # 
@@ -23,7 +23,9 @@
 #   cl <- NCPUS(detectCores() - 1)
 # }
 # 
-# match_data <- readRDS("./temp/match_data.rds")
+# match_data <- select(readRDS("./temp/match_data.rds"), -age)
+# 
+# match_data <- match_data[complete.cases(match_data), ]
 # 
 # ids <- match_data %>% 
 #   mutate(id = row_number()) %>% 
@@ -36,7 +38,7 @@
 #          -distance_border)
 # 
 # 
-# genout <- readRDS("./temp/wi_genout")
+# genout <- readRDS("./temp/wi_genout_no_age_1p.rds")
 # 
 # mout <- Matchby(Tr = match_data$mke, X = X,
 #                 by = c(X$primary_18,
@@ -44,12 +46,11 @@
 #                        X$dem,
 #                        X$rep), estimand = "ATT", Weight.matrix = genout, M = 2)
 # 
-# save(mout, file = "./temp/mout_wi.RData")
+# save(mout, file = "./temp/mout_wi_no_age.RData")
 
 ###############################
 
-roll <- readRDS("./temp/match_data.rds") %>% 
-  select(-age)
+roll <- select(readRDS("./temp/match_data.rds"), -age)
 
 roll <- roll[complete.cases(roll), ] %>% 
   mutate(id = row_number())
@@ -58,12 +59,12 @@ load("./temp/mout_wi_no_age.RData")
 
 varnames <- c("primary_18", "primary_16", "white", "black",
               "latino", "asian", "income", "college", "dem",
-              "rep", "male")
+              "rep", "male", "lat", "long")
 
 # this takes hours
 # balance <- MatchBalance(mke ~ primary_18 + primary_16 + white +
 #                           white + black + latino + asian + income + college +
-#                           dem + rep + male,
+#                           dem + rep + male + lat + long,
 #                         data = roll, match.out = mout)
 # saveRDS(balance, "./temp/balance_table_full_match_no_age.rds")
 
@@ -171,3 +172,9 @@ ids <- data.table(id = c(matches$treated, matches$control),
                   distance = rep(matches$dist, 2))
 
 saveRDS(ids, "./temp/reg_data_no_age.rds")
+
+
+ids <- left_join(ids, roll)
+
+to <- ids %>% group_by(mke) %>% 
+  summarize(primary_16 = weighted.mean(primary_16, weights))
