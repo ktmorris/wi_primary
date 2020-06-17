@@ -76,6 +76,11 @@ Intro
 
 .
 
+.
+
+
+.
+
 ### Prior Literature {-}
 
 Disrupting one's routine with regard to voting -- whether by relocating polling places or reducing the total number of polls -- reduces turnout. Moving or reducing the number of polling places imposes new search and transportation costs on voters [@Brady2011]. A study of the 2001 election in Atlanta, Georgia reports a moved polling place reduces the likelihood of voting by about 5.5 points [@Haspel2005]. Comparing turnout between the 2000 and 2008 presidential elections revealed polling place consolidation at the county level reduced turnout by about nine-tenths of a point, even after controlling for the increased turnout in 2008 and changes in voting technology [@Kropf2012, 68]. In their study of the 2003 gubernatorial election in California, Brady and McNulty [-@Brady2011] report that increasing the distance to polls reduces the likelihood of voting at the polls by between 2 and 4 points, as the distance to the polls increases from 0 to, at most, 1 mile. Absentee voting is more likely as the distance to the polls increases, but this effect is not large enough to offset the decrease from consolidation itself. Consolidating polling places in a New York State school district local election reduced turnout by an average of 7 points [@McNulty2009]. A recent study of nine municipalities in Massachusetts and Minnesota found increasing the distance to the polls by about one-quarter mile reduces turnout by between 2 and 5 points, and that this effect is more pronounced among "high-minority, ­low-income, and low-car-availability areas" in the context of a non-presidential election [@Cantoni2020, 88].
@@ -102,7 +107,7 @@ Hypothesis B: As we allow the maximum allowed distance to increase, the negative
 
 ### Results {-}
 
-Our matching procedure is highly successful: we achieve 100 percent improvement in the mean difference between treated and control voters along 9 of our 11 (excluding longitude and latitude) covariates. The other two --- household income and share male --- improve by more than 99.95%. The average treated and matched control voter live 2.5 miles apart.
+Our matching procedure is highly successful: we achieve 100 percent improvement in the mean difference between treated and control voters along 9 of our 11 (excluding longitude and latitude) covariates. The other two --- household income and share male --- improve by more than 99.95%. Treated voters and their matched controls live an average of 2.5 miles apart.
 
 Table \ref{tab:reg-table} presents the results of ordinary least squares regressions testing the treatment effect. In Table \ref{tab:reg-table} we require treated and control voters to live within 0.5 miles of one another.^[A treated voter might live within the cutoff distance from one of her controls but not the other. The regression weights are updated for each regression to reflect this possibility.] The dependent variable takes the value 1 if a voter cast a ballot in the April primary, and 0 if she did not. We also test whether the treatment effect was different for Black voters than for other voters; research indicates that minority voters are both less likely to use vote-by-mail options and more likely to have their ballots rejecting, implying that the closed polling places might have decreased their turnout by even more than others'. Models 1 and 3 include just the treatment variable (and, in Model 3, the interaction terms) while Models 2 and 4 add in the variables on which the matching was performed (but without latitude and longitude). Robust standard errors are clustered at the level of the match [@Abadie2019].
 \begin{singlespace}
@@ -134,7 +139,7 @@ Models 1 and 2 indicate that turnout was depressed by roughly 8.6 percentage poi
 
 We are also interested in whether the findings hold when we relax the geographic assumption by further restricting the maximum allowed distance, and also in whether the size of the treatment effect grows as we include pairs who live further away from one another. Figure \ref{fig:coef-plot} re-estimates of Model 3 from Table \ref{tab:reg-table} using different maximum distances between treated and control voters.^[The interaction effect becomes non-significant at the narrowest bands, though it remains negative. This is probably due to the fact that very few treated Black voters lived near the municipal border and had matches just on the other side; in our most conservative pool, we have just 82 treated Black voters, while Black voters make up just 5% of the treated voters in the second-most-conservative model. In an alternative model, where we match all Milwaukee voters within 0.125 of the boundary to suburban voters within the same distance of the boundary, we maintain excellent covariate balance and the interaction effect is significant at the 99 percent confidence level. The coefficient on Black × Lives in MKE in this model is -2.6 points.]
 
-```{r plot, echo = FALSE, message = F, warning = F, fig.width = 7.5, fig.height = 3.9, fig.cap = "\\label{fig:coef-plot}Estimated Depressive Effect of Living in MKE, 2020 Primary", fig.pos = "H", fig.align = "center"}
+```{r plot, echo = FALSE, message = F, warning = F, fig.width = 7.5, fig.height = 4.25, fig.cap = "\\label{fig:coef-plot}Estimated Depressive Effect of Living in MKE, 2020 Primary", fig.pos = "H", fig.align = "center"}
 p <- readRDS("./temp/coef_plot.rds")
 p
 ```
