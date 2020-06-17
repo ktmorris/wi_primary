@@ -21,8 +21,8 @@ locs_20 <- fread("./temp/locs_20.csv") %>%
 
 
 voters <- left_join(voters, locs_20,
-                by = c("Precinct_1" = "V1_1",
-                       "p2" = "V1_22"))
+                    by = c("Precinct_1" = "V1_1",
+                           "p2" = "V1_22"))
 #######################
 
 locs_16 <- fread("./temp/locs_16.csv") %>% 
@@ -62,18 +62,12 @@ voters <- left_join(voters,
 
 ###################
 
-v2 <- fread("./temp/shapes/voters.csv") %>% 
-  select(LALVOTERID = LALVOTE, distance_border = NEAR_DIST)
+dists <- fread("./temp/dists_border.csv") %>% 
+  select(LALVOTERID, distance_to_border = NEAR_DIST) %>% 
+  mutate(distance_to_border = distance_to_border * 0.000621371)
 
-voters <- left_join(voters, v2)
-cleanup("voters")
-voters <- voters[!duplicated(voters$LALVOTERID), ]
+voters <- left_join(voters, dists)
 
-voters$distance_border <- voters$distance_border / 1000
-
-voters$distance_border <- ifelse(voters$city == "CITY OF MILWAUKEE",
-                                 -1 * voters$distance_border,
-                                 voters$distance_border)
 ###################
 
 voters <- voters %>% 
@@ -100,7 +94,7 @@ saveRDS(voters %>%
           select(LALVOTERID, age, primary_18,
                  primary_16, lat, long,
                  primary_20,
-                 distance_border,
+                 distance_border = distance_to_border,
                  white, black, latino, asian,
                  income, college, dem, rep,
                  mke, male), "./temp/match_data.rds")
