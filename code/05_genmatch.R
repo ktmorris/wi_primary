@@ -1,4 +1,4 @@
-on_nyu <- F
+on_nyu <- T
 
 if(on_nyu){
   library(Matching)
@@ -21,11 +21,11 @@ if(on_nyu){
 }
 
 
-match_data <- readRDS("./temp/match_data.rds")
+match_data <- select(readRDS("./temp/match_data.rds"), -age)
 
-match_data2 <- match_data[complete.cases(match_data), ] %>% 
+match_data <- match_data[complete.cases(match_data), ] %>% 
   group_by(mke) %>% 
-  sample_frac(0.05) %>% 
+  sample_frac(0.01) %>% 
   ungroup()
 
 genout <- GenMatch(Tr = match_data$mke,
@@ -34,4 +34,4 @@ genout <- GenMatch(Tr = match_data$mke,
                             -primary_20,
                             -mke,
                             -distance_border), M = 1, pop.size = 150)
-saveRDS(genout, "./temp/wi_genout")
+saveRDS(genout, "./temp/wi_genout_no_age_1p.rds")
