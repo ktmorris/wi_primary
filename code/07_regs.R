@@ -60,7 +60,7 @@ m4 <- lm(primary_20 ~ mke * black +
 stargazer(m1, m2, m3, m4,
           header = F,
           type = "text", notes.align = "l",
-          covariate.labels = c("Lives in MKE", "Black", "Black $\\times$ Lives in MKE"),
+          covariate.labels = c("Lives in Milwaukee", "Black", "Black $\\times$ Lives in Milwaukee"),
           dep.var.labels = c("Turnout"),
           title = "\\label{tab:reg-table} Turnout in 2020 Primary",
           table.placement = "H",
@@ -138,8 +138,8 @@ plot <- ggplot(filter(cints)) +
   theme_bw() +
   labs(y = "Estimated Coefficient",
        x = "Maximum Distance Between Control and Treated Voters (Miles)",
-       caption = "Notes: 95% confidence bars shown.\n\"Effect for Non-Black Voters\" refers to the variable \"Lives in MKE,\"
-while \"Additional Effect for Black Voters\" refers to \"Black × Lives in MKE.\"
+       caption = "Notes: 95% confidence bars shown.\n\"Effect for Non-Black Voters\" refers to the variable \"Lives in Milwaukee,\"
+while \"Additional Effect for Black Voters\" refers to \"Black × Lives in Milwaukee.\"
 The overall effect for Black voters is therefore the sum of both estimates.",
        shape = "Group",
        linetype = "Group") +
