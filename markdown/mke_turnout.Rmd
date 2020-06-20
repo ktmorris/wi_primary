@@ -1,11 +1,13 @@
 ---
 title: "Voting in a Pandemic: COVID-19 and Primary Turnout in Milwaukee, Wisconsin"
-subtitle: ""
 author:
 - Kevin Morris^[Researcher, Brennan Center for Justice at NYU School of Law, 120 Broadway Ste 1750, New York, NY 10271 (kevin.morris@nyu.edu)]
 - Peter Miller^[Researcher, Brennan Center for Justice at NYU School of Law, 120 Broadway Ste 1750, New York, NY 10271 (peter.miller@nyu.edu)]
 institute: "Brennan Center for Justice at NYU Law School"
-date: "`r format(Sys.time(), '%B %d, %Y')`"
+date: |
+  `r format(Sys.time(), '%B %d, %Y')`
+  
+  Word Count: 3,196
 output:
   bookdown::pdf_document2:
     toc: no
@@ -21,7 +23,7 @@ header-includes:
     - \usepackage{rotating}
     - \usepackage{setspace}
 abstract: |
-  We report the first study of the effect of the novel coronavirus SARS-CoV-2 (COVID-19) on voting behavior. We draw upon individual-level observations from Milwaukee matched to similar observations in the surrounding counties to assess whether fewer polling places in the primary election decreased turnout in the city. We find polling place consolidation reduced overall turnout by about 8.5 points and reduced turnout among the black population in the city by about 10.2 points. This effect becomes more pronounced as the distance between treated and control observations on either side of the municipal boundary increases, suggestive that COVID-19 itself reduced turnout separate from polling place consolidation. We conclude on the basis of these data that conversion to widespread absentee voting in the general election will result in disenfranchisement, which may be particularly marked among racial minorities.
+  We report the first study of the effect of the novel coronavirus SARS-CoV-2 (COVID-19) on voting behavior. We draw upon individual-level observations from Milwaukee matched to similar observations in the surrounding counties to assess whether fewer polling places in the primary election decreased turnout in the city. We find polling place consolidation reduced overall turnout by about 8.5 points and reduced turnout among the Black population in the city by about 10.2 points. This effect becomes more pronounced as the distance between treated and control observations on either side of the municipal boundary increases, suggestive that COVID-19 itself reduced turnout separate from polling place consolidation. We conclude on the basis of these data that conversion to widespread absentee voting in the general election will result in disenfranchisement, which may be particularly marked among racial minorities.
 ---
 \pagenumbering{gobble}
 \pagebreak
@@ -74,7 +76,17 @@ Hypothesis B: As we allow the maximum allowed distance to increase, the negative
 
 ### Results {-}
 
-Our matching procedure is successful: we achieve 100 percent improvement in the mean difference between treated and control voters along 9 of our 11 (excluding longitude and latitude) covariates. The other two --- household income and share male --- improve by more than 99.95%. Treated voters and their matched controls live an average of 2.5 miles apart.
+We begin by presenting the results of the matching model, where each treated voter.^[Due to computing constraints, we use a 1% sample of voters (stratified by treatment status), though the whole pool is eventually used for the matching procedure itself.] Table \ref{tab:match} demonstrates that the matching procedure was largely successful: we achieve substantial improvement along all characteristics. Milwaukee City is far less white than the suburbs; has far lower incomes and education levels; and saw much lower turnout in recent primary elections. We do not include latitudes and longitudes in the balance table but the average distance between a treated voter and her controls is 2.5 miles. Matching is done with replacement, and ties are broken randomly.
+
+\begin{singlespace}
+```{r balance-tab-chunk, echo = F}
+t <- readRDS("./temp/balance_table_full_no_age.rds")
+j <- knitr::kable(t, booktabs = T, caption = "(\\#tab:match) Balance Table", linesep = "") %>% 
+  add_header_above(c(" " = 1, "Means: Unmatched Data" = 2, "Means: Matched Data" = 2, "Percent Improvement" = 4), align = "c") %>% 
+  kable_styling(latex_options = c("scale_down", "HOLD_position"))
+j
+```
+\end{singlespace}
 
 Table \ref{tab:reg-table} presents the results of ordinary least squares regressions testing the treatment effect. In Table \ref{tab:reg-table} we require treated and control voters to live within 0.5 miles of one another.^[A treated voter might live within the cutoff distance from one of her controls but not the other. The regression weights are updated for each regression to reflect this possibility.] The dependent variable takes the value 1 if a voter cast a ballot in the April primary, and 0 if she did not. We also test whether the treatment effect was different for Black voters than for other voters which @Cantoni2020 indicates is possible. Models 1 and 3 include just the treatment variable (and, in Model 3, the interaction term) while Models 2 and 4 add in the variables on which the matching was performed (but without latitude and longitude). Robust standard errors are clustered at the level of the match [@Abadie2019].
 \begin{singlespace}
