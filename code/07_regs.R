@@ -6,18 +6,25 @@ roll <- readRDS("./temp/match_data.rds") %>%
 roll <- roll[complete.cases(roll), ] %>% 
   mutate(id = row_number())
 
-#######################
-cities <- readRDS("./temp/mke_voters.rds") %>% 
-  select(LALVOTERID, Residence_Addresses_City, County)
-cities <- cities[!duplicated(cities$LALVOTERID), ]
-
-roll <- left_join(roll, cities)
-rm(cities)
-###########################
-
 reg_data <- left_join(reg_data, roll, by = "id")
 
 reg_data$group <- as.character(reg_data$group)
+#############################################
+pot <- readRDS("./temp/mke_voters.rds")
+
+pot <- filter(pot, LALVOTERID %in% reg_data$LALVOTERID) %>% 
+  mutate(GEOID = paste0("55", str_pad(Voters_FIPS, width = 3, side = "left", pad = "0"),
+                        str_pad(Residence_Addresses_CensusTract, width = 6, side = "left", pad = "0")))
+
+reg_data <- left_join(reg_data, select(pot, LALVOTERID, GEOID, Residence_Addresses_City, County))
+
+
+covid <- fread("./raw_data/ts_0421.csv")
+
+reg_data <- left_join(reg_data, select(covid, GEOID, DEATHS, POSITIVE, NEGATIVE)) %>% 
+  mutate_at(vars(DEATHS, POSITIVE, NEGATIVE), ~ ifelse(. == -999, 2, .)) %>%
+  mutate(rate2 = ifelse(POSITIVE == -999 | NEGATIVE == -999, NA, POSITIVE / (POSITIVE + NEGATIVE)))
+###################################################
 
 inter <- as.data.table(filter(reg_data, distance <= 0.5))
 
@@ -28,8 +35,9 @@ inter <- as.data.table(inter)[, .(weights = sum(weights)),
                               by = list(id, group, County, primary_20,
                                         primary_18, primary_16, white, black,
                                         latino, asian, income, college, dem,
-                                        rep, male)] %>% 
-  mutate(mke = id == group)
+                                        rep, male, rate2)] %>% 
+  mutate(mke = id == group,
+         black_mke = mke * black)
 
 
 ll <- inter %>% 
@@ -50,24 +58,28 @@ m2 <- lm(primary_20 ~ mke +
            latino + asian + income + college + dem +
            rep + male + County, inter, weights = weights)
 
-m3 <- lm(primary_20 ~ mke * black + County, data = inter, weights = weights)
+m3 <- lm(primary_20 ~ mke + black + black_mke + County, data = inter, weights = weights)
 
-m4 <- lm(primary_20 ~ mke * black +
+m4 <- lm(primary_20 ~ mke + black + black_mke +
            primary_18 + primary_16 + white + 
            latino + asian + income + college + dem +
            rep + male + County, inter, weights = weights)
 
-stargazer(m1, m2, m3, m4,
+m5 <- lm(primary_20 ~ mke + black + black_mke +
+           primary_18 + primary_16 + white + 
+           latino + asian + income + college + dem +
+           rep + male + County + rate2, inter, weights = weights)
+
+stargazer(m1, m2, m3, m4, m5,
           header = F,
           type = "text", notes.align = "l",
-          covariate.labels = c("Lives in Milwaukee", "Black", "Black $\\times$ Lives in Milwaukee"),
+          covariate.labels = c("Lives in Milwaukee", "Black", "Black $\\times$ Lives in Milwaukee",
+                               "Positive Test Rate"),
           dep.var.labels = c("Turnout"),
           title = "\\label{tab:reg-table} Turnout in 2020 Primary",
           table.placement = "H",
           omit.stat = c("f", "ser", "aic"),
-          omit = c("age", "primary_18", "primary_16", "white",
-                   "latino", "asian", "income", "college", "dem",
-                   "rep", "male", "County"),
+          keep = c("mke", "black", "black_mke", "rate2", "Constant"),
           table.layout = "-cmd#-t-a-s-n",
           out = "./temp/reg_table.tex",
           out.header = F,
@@ -76,8 +88,8 @@ stargazer(m1, m2, m3, m4,
                     coef(summary(m2, cluster = c("group")))[, 2],
                     coef(summary(m3, cluster = c("group")))[, 2],
                     coef(summary(m3, cluster = c("group")))[, 2]),
-          add.lines=list(c("Includes Other Matched Covariates" , "", "X", "", "X"),
-                         c("Includes County Fixed Effects" , "X", "X", "X", "X")))
+          add.lines=list(c("Includes Other Matched Covariates" , "", "X", "", "X", "X"),
+                         c("Includes County Fixed Effects" , "X", "X", "X", "X", "X")))
 ###############
 cints <- rbindlist(lapply(c((1 / 35.2),
                             seq(0.25, 2, 0.25),
