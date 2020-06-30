@@ -1,13 +1,11 @@
 ---
 title: "Voting in a Pandemic: COVID-19 and Primary Turnout in Milwaukee, Wisconsin"
+subtitle: ""
 author:
 - Kevin Morris^[Researcher, Brennan Center for Justice at NYU School of Law, 120 Broadway Ste 1750, New York, NY 10271 (kevin.morris@nyu.edu)]
 - Peter Miller^[Researcher, Brennan Center for Justice at NYU School of Law, 120 Broadway Ste 1750, New York, NY 10271 (peter.miller@nyu.edu)]
 institute: "Brennan Center for Justice at NYU Law School"
-date: |
-  June 23, 2020
-  
-  Word Count: 3,196
+date: "`r format(Sys.time(), '%B %d, %Y')`"
 output:
   bookdown::pdf_document2:
     toc: no
@@ -23,7 +21,7 @@ header-includes:
     - \usepackage{rotating}
     - \usepackage{setspace}
 abstract: |
-  We report the first study of the effect of the novel coronavirus SARS-CoV-2 (COVID-19) on voting behavior. We draw upon individual-level observations from Milwaukee matched to similar observations in the surrounding counties to assess whether fewer polling places in the primary election decreased turnout in the city. We find polling place consolidation reduced overall turnout by about 8.5 points and reduced turnout among the Black population in the city by about 10.2 points. This effect becomes more pronounced as the distance between treated and control observations on either side of the municipal boundary increases, suggestive that COVID-19 itself reduced turnout separate from polling place consolidation. We conclude on the basis of these data that conversion to widespread absentee voting in the general election will result in disenfranchisement, which may be particularly marked among racial minorities.
+  We report the first study of the effect of the novel coronavirus SARS-CoV-2 (COVID-19) on voting behavior. We draw upon individual-level observations from Milwaukee matched to similar observations in the surrounding counties to assess whether fewer polling places in the primary election decreased turnout in the city. We find polling place consolidation reduced overall turnout by about 8.5 points and reduced turnout among the black population in the city by about 10.2 points. This effect becomes more pronounced as the distance between treated and control observations on either side of the municipal boundary increases, suggestive that COVID-19 itself reduced turnout separate from polling place consolidation. We conclude on the basis of these data that conversion to widespread absentee voting in the general election will result in disenfranchisement, which may be particularly marked among racial minorities.
 ---
 \pagenumbering{gobble}
 \pagebreak
@@ -62,11 +60,11 @@ We use individual-level voter registration and turnout records from L2 Political
 
 Although Milwaukee reduced the total number of polling places, the rest of the state did not see such drastic consolidation. Outside of Milwaukee, the state had 10.2% fewer polling places open in April 2020 than November 2016. However, residents of Milwaukee were also likely subjected to a *second* treatment due to the severity of COVID-19. In Milwaukee County there had been roughly 14 positive tests for COVID-19 per 10,000 residents as of the date of the primary election, compared with 7.5 positive tests per 10,000 residents in Ozaukee County, and 4.4, 4.2, and 3.4 in Washington, Waukesha, and Racine Counties, respectively.^[See https://www.dhs.wisconsin.gov/covid-19/county.htm.] Simply comparing the turnout of Milwaukee to the suburbs therefore cannot reveal the depressive effect of polling place consolidation alone, but rather the net effect of higher exposure to the pandemic and the consolidation of polling places.
 
-To isolate the effect of polling place consolidation from COVID-19, we leverage electoral jurisdiction boundaries as an assignment to treatment mechanism [@Kaplan2020; @Cantoni2020]. Our primary design is a regression discontinuity in space that exploits the municipal boundary line to compare turnout for voters on either side of the "cutpoint" boundary [@Keele2015]. We assume that voters who live in close proximity to one another but on either side of the boundary were exposed to similar experiences with COVID-19.
+To isolate the effect of polling place consolidation from COVID-19, we leverage electoral jurisdiction boundaries as an assignment to treatment mechanism [@Kaplan2020; @Cantoni2020]. Our primary design is a regression discontinuity in space that exploits the municipal boundary line to compare turnout for voters on either side of the "cutpoint" boundary [@Keele2015]. Research from New Orleans indicates that COVID-19 is clustered at the neighborhood level [@vanHolm2020], and we therefore assume that voters who live in close proximity to one another but on either side of the boundary were exposed to similar experiences with COVID-19.
 
 The traditional regression discontinuity framework, however, relies on the assumption that individuals cannot "select" around the cutpoint; in other words, that within a narrow window individuals on either side of the cutpoint are identical. That is perhaps too strong of an assumption. Voters very near one another but on opposite sides of the border might differ in meaningful ways. @Keele2015 offers one way of dealing with this problem: "When there appears to be strong self-selection around the border of interest, one alternative is to combine designs and to assume that, after conditioning on covariates, treatment assignment is as-if randomized for those who live near the city limit" (page 228). We adopt this approach by genetically matching [@Sekhon2009; @Sekhon2011] each registered voter in Milwaukee City to two voters who live outside the city but in Milwaukee, Racine, Waukesha, Washington, or Ozaukee County.^[Each of these counties shares a border with Milwaukee County. Treated and control voters are matched exactly on turnout in the 2016 and 2018 primary elections, and on their partisan affiliation. Voters are also matched on their gender, their household income, whether they have a college education, and their race / ethnicity. Voters are also matched on their latitude and longitude to ensure physical proximity to one another.] After the matching procedure has been completed, we test how the estimated treatment effect changes as we vary the maximum distance allowed between treated and control voters.
 
-Although this differs from a regression discontinuity in which there is a band around a cutpoint, the logic is the same. As the maximum allowed distance between treated and control voters approaches zero, we are in fact reducing the band around the cutpoint represented by the municipal border. For instance, when the maximum distance allowed between a treated voter and her match is 0.5 miles, each voter will live (on average) within 0.25 miles of the border. Just as narrowing the band allows us to home in on the effect of polling place closures, by expanding the maximum allowed distance we can estimate the net effect of polling place consolidation plus Milwaukee City's increased exposure to COVID-19.
+Although this differs from a regression discontinuity in which there is a band around a cutpoint, the logic is the same. As the maximum allowed distance between treated and control voters approaches zero, we are in fact reducing the band around the cutpoint represented by the municipal border. For instance, when the maximum distance allowed between a treated voter and her match is 0.5 miles, each voter will live (on average) within 0.25 miles of the border. It is important to note that this is more conservative than matching treated and control voters within a buffer around the border --- not only must pairs both live within a buffer, they must also live near one another *within* that buffer. Just as narrowing the band allows us to home in on the effect of polling place closures, by expanding the maximum allowed distance we can estimate the net effect of polling place consolidation plus Milwaukee City's increased exposure to COVID-19.
 
 This set-up allows us to test two hypotheses:
 
@@ -76,17 +74,7 @@ Hypothesis B: As we allow the maximum allowed distance to increase, the negative
 
 ### Results {-}
 
-We begin by presenting the results of the matching model, where each treated voter.^[Due to computing constraints, we use a 1% sample of voters (stratified by treatment status), though the whole pool is eventually used for the matching procedure itself.] Table \ref{tab:match} demonstrates that the matching procedure was largely successful: we achieve substantial improvement along all characteristics. Milwaukee City is far less white than the suburbs; has far lower incomes and education levels; and saw much lower turnout in recent primary elections. We do not include latitudes and longitudes in the balance table but the average distance between a treated voter and her controls is 2.5 miles. Matching is done with replacement, and ties are broken randomly.
-
-\begin{singlespace}
-```{r balance-tab-chunk, echo = F}
-t <- readRDS("./temp/balance_table_full_no_age.rds")
-j <- knitr::kable(t, booktabs = T, caption = "(\\#tab:match) Balance Table", linesep = "") %>% 
-  add_header_above(c(" " = 1, "Means: Unmatched Data" = 2, "Means: Matched Data" = 2, "Percent Improvement" = 4), align = "c") %>% 
-  kable_styling(latex_options = c("scale_down", "HOLD_position"))
-j
-```
-\end{singlespace}
+Our matching procedure is successful: we achieve 100 percent improvement in the mean difference between treated and control voters along 9 of our 11 (excluding longitude and latitude) covariates. The other two --- household income and share male --- improve by more than 99.95%. Treated voters and their matched controls live an average of 2.5 miles apart.
 
 Table \ref{tab:reg-table} presents the results of ordinary least squares regressions testing the treatment effect. In Table \ref{tab:reg-table} we require treated and control voters to live within 0.5 miles of one another.^[A treated voter might live within the cutoff distance from one of her controls but not the other. The regression weights are updated for each regression to reflect this possibility.] The dependent variable takes the value 1 if a voter cast a ballot in the April primary, and 0 if she did not. We also test whether the treatment effect was different for Black voters than for other voters which @Cantoni2020 indicates is possible. Models 1 and 3 include just the treatment variable (and, in Model 3, the interaction term) while Models 2 and 4 add in the variables on which the matching was performed (but without latitude and longitude). Robust standard errors are clustered at the level of the match [@Abadie2019].
 \begin{singlespace}

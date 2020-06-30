@@ -17,10 +17,6 @@ rm(cities)
 
 reg_data <- left_join(reg_data, roll, by = "id")
 
-reg_data <- left_join(reg_data, fread("./temp/dists_border.csv") %>% 
-                        select(LALVOTERID, distance_to_border = NEAR_DIST) %>% 
-                        mutate(distance_to_border = distance_to_border * 0.000621371))
-
 reg_data$group <- as.character(reg_data$group)
 
 inter <- as.data.table(filter(reg_data, distance <= 0.5))
@@ -32,7 +28,7 @@ inter <- as.data.table(inter)[, .(weights = sum(weights)),
                               by = list(id, group, County, primary_20,
                                         primary_18, primary_16, white, black,
                                         latino, asian, income, college, dem,
-                                        rep, male, distance_to_border, distance)] %>% 
+                                        rep, male)] %>% 
   mutate(mke = id == group)
 
 
