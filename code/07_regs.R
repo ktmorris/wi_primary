@@ -50,27 +50,39 @@ ll <- pivot_longer(ll, -mke, names_to = "year", values_to = "to") %>%
 ggplot(ll, aes(x = year, y = to, linetype = mke)) + geom_line()
 
 #############################
+f1 <- primary_20 ~ mke + County
 
-m1 <- lm(primary_20 ~ mke + County, inter, weights = weights)
-
-m2 <- lm(primary_20 ~ mke +
+f2 <- primary_20 ~ mke +
            primary_18 + primary_16 + white + black +
            latino + asian + income + college + dem +
-           rep + male + County, inter, weights = weights)
+           rep + male + County
 
-m3 <- lm(primary_20 ~ mke + black + black_mke + County, data = inter, weights = weights)
+f3 <- primary_20 ~ mke + black + black_mke + County
 
-m4 <- lm(primary_20 ~ mke + black + black_mke +
+f4 <- primary_20 ~ mke + black + black_mke +
            primary_18 + primary_16 + white + 
            latino + asian + income + college + dem +
-           rep + male + County, inter, weights = weights)
+           rep + male + County
 
-m5 <- lm(primary_20 ~ mke + black + black_mke +
-           primary_18 + primary_16 + white + 
-           latino + asian + income + college + dem +
-           rep + male + County + rate2, inter, weights = weights)
+f5 <- primary_20 ~ mke + black + black_mke +
+  primary_18 + primary_16 + white + 
+  latino + asian + income + college + dem +
+  rep + male + County + rate2
 
-stargazer(m1, m2, m3, m4, m5,
+models <- lapply(c(f1, f2, f3, f4, f5), function(f){
+  m <- lm(f, inter, weights = weights)
+})
+
+
+ses_cl <- list(
+  summary(lm.cluster(formula = f1, data = inter, weights = inter$weights, cluster = inter$group))[ , 2],
+  summary(lm.cluster(formula = f2, data = inter, weights = inter$weights, cluster = inter$group))[ , 2],
+  summary(lm.cluster(formula = f3, data = inter, weights = inter$weights, cluster = inter$group))[ , 2],
+  summary(lm.cluster(formula = f4, data = inter, weights = inter$weights, cluster = inter$group))[ , 2],
+  summary(lm.cluster(formula = f5, data = inter, weights = inter$weights, cluster = inter$group))[ , 2]
+)
+
+stargazer(models,
           header = F,
           type = "text", notes.align = "l",
           covariate.labels = c("Lives in Milwaukee", "Black", "Black $\\times$ Lives in Milwaukee",
@@ -84,12 +96,52 @@ stargazer(m1, m2, m3, m4, m5,
           out = "./temp/reg_table.tex",
           out.header = F,
           notes = "TO REPLACE",
-          se = list(coef(summary(m1, cluster = c("group")))[, 2],
-                    coef(summary(m2, cluster = c("group")))[, 2],
-                    coef(summary(m3, cluster = c("group")))[, 2],
-                    coef(summary(m3, cluster = c("group")))[, 2]),
-          add.lines=list(c("Includes Other Matched Covariates" , "", "X", "", "X", "X"),
+          se = ses_cl,
+          add.lines=list(c("Includes Other Matched Covariates" , "", "X", "", "X", ""),
                          c("Includes County Fixed Effects" , "X", "X", "X", "X", "X")))
+###############
+models <- NULL
+ses_cl <- NULL
+i = 1
+for(f in (c(0.5, 1, 2, 5, 10))){
+  print(f)
+  inter <- as.data.table(filter(reg_data, distance <= f))
+  
+  inter <- inter[ , count := .N, by = .(group, mke)] %>% 
+    mutate(weights = 1 / count)
+  
+  inter <- as.data.table(inter)[, .(weights = sum(weights)),
+                                by = list(id, group, County, primary_20,
+                                          primary_18, primary_16, white, black,
+                                          latino, asian, income, college, dem,
+                                          rep, male, rate2)] %>% 
+    mutate(mke = id == group,
+           black_mke = mke * black)
+  
+  models[[i]] <- lm(f5, inter, weights = weights)
+  
+  ses_cl[[i]] <- summary(lm.cluster(formula = f5, data = inter, weights = inter$weights, cluster = inter$group))[ , 2]
+
+  i = i + 1
+}
+
+stargazer(models,
+          header = F,
+          type = "text", notes.align = "l",
+          covariate.labels = c("Lives in Milwaukee", "Black", "Black $\\times$ Lives in Milwaukee",
+                               "Positive Test Rate"),
+          column.labels = c("0.5", "1", "2", "5", "10"),
+          dep.var.labels = c("Turnout"),
+          dep.var.caption = "Maximum Allowed Distance (in miles)",
+          title = "\\label{tab:reg-table} Turnout in 2020 Primary",
+          table.placement = "H",
+          omit.stat = c("f", "ser", "aic"),
+          keep = c("mke", "black", "black_mke", "rate2", "Constant"),
+          table.layout = "-#lc-t-a-s-n",
+          out = "./temp/reg_table_2.tex",
+          out.header = F,
+          notes = "TO REPLACE",
+          se = ses_cl)
 ###############
 cints <- rbindlist(lapply(c((1 / 35.2),
                             seq(0.25, 2, 0.25),
@@ -108,24 +160,22 @@ cints <- rbindlist(lapply(c((1 / 35.2),
     mutate(mke = id == group)
   
   if(length(unique(inter$County)) > 1){
-    mod <- lm(primary_20 ~ mke * black + County, inter, weights = weights)
+    mod <- lm.cluster(primary_20 ~ mke * black + County, data = inter, weights = inter$weights, cluster = inter$group)
   } else{
-    mod <- lm(primary_20 ~ mke * black, inter, weights = weights)
+    mod <- lm.cluster(primary_20 ~ mke * black, data = inter, weights = inter$weights, cluster = inter$group)
   }
-  
-  
   ci <- confint(mod)
   
   nr <- nrow(ci)
   
   j <- data.table(distance = m,
-                  estimate = mod[["coefficients"]][["mkeTRUE"]],
+                  estimate = mod[["lm_res"]][["coefficients"]][["mkeTRUE"]],
                   lower = ci[2,1],
                   upper = ci[2,2],
                   type = "overall")
   
   k <- data.table(distance = m,
-                  estimate = mod[["coefficients"]][["mkeTRUE:black"]],
+                  estimate = mod[["lm_res"]][["coefficients"]][["mkeTRUE:black"]],
                   lower = ci[nr,1],
                   upper = ci[nr,2],
                   type = "black_add")
@@ -165,3 +215,68 @@ The overall effect for Black voters is therefore the sum of both estimates.",
 
 plot
 saveRDS(plot, "./temp/coef_plot.rds")
+
+#######################################
+
+diffs <- rbindlist(lapply(c((1 / 35.2),
+                            seq(0.25, 2, 0.25),
+                            seq(2.5, 5, 0.5),
+                            c(6:10)), function(m){
+                              print(m)
+                              
+                              inter <- as.data.table(filter(reg_data, distance <= m))
+                              
+                              inter <- inter[ , count := .N, by = .(group, mke)] %>% 
+                                mutate(weights = 1 / count)
+                              
+                              inter <- as.data.table(inter)[, .(weights = sum(weights),
+                                                                rate2 = mean(rate2)), by = list(id, group, County)] %>% 
+                                mutate(mke = id == group)
+                              
+                              wm <- inter %>% 
+                                group_by(mke) %>% 
+                                summarize(wm = weighted.mean(rate2, weights, na.rm = T))
+                              
+                              j <- data.table(distance = m,
+                                              difference = wm$wm[2] - wm$wm[1])
+                              return(j)
+                            }))
+
+ggplot(diffs, aes(x = distance, y = difference)) + geom_line() + geom_point() +
+  labs(y = "Difference in Neighborhood Positive Test Rate, Treated - Control",
+       x = "Maximum Distance Between Control and Treated Voters (Miles)",
+       shape = "Group",
+       linetype = "Group") +
+  scale_y_continuous(labels = scales::percent) +
+  scale_x_continuous(breaks = seq(0, 12, 2)) +
+  theme_bw() +
+  theme(text = element_text(family = "LM Roman 10"),
+        plot.caption = element_text(hjust = 0),
+        legend.key.size = unit(2, 'lines'))
+############################
+
+plot <- ggplot(filter(cints)) +
+  geom_errorbar(aes(x = distance,
+                    ymin = lower, ymax = upper), size = 0.2) +
+  geom_line(aes(x = distance, y = estimate, linetype = type), size = 0.2) + 
+  geom_point(aes(x = distance, y = estimate, shape = type), size = 1.5) + 
+  geom_line(data = diffs, aes(x = distance, y = difference), color = "blue") +
+  geom_point(data = diffs, aes(x = distance, y = difference), color = "blue", size = 1.5) +
+  theme_bw() +
+  labs(y = "Estimated Coefficient",
+       x = "Maximum Distance Between Control and Treated Voters (Miles)",
+       caption = "Notes: 95% confidence bars shown.\n\"Effect for Non-Black Voters\" refers to the variable \"Lives in Milwaukee,\"
+while \"Additional Effect for Black Voters\" refers to \"Black × Lives in Milwaukee.\"
+The overall effect for Black voters is therefore the sum of both estimates.",
+       shape = "Group",
+       linetype = "Group") +
+  scale_y_continuous(labels = scales::percent, breaks = seq(-.15, .1, 0.05),
+                     sec.axis = sec_axis(trans = ~., labels = scales::percent,
+                                         name = "Difference in Neighborhood Positive Test Rate, Treated - Control")) +
+  scale_x_continuous(breaks = seq(0, 12, 2)) +
+  theme(text = element_text(family = "LM Roman 10"),
+        plot.caption = element_text(hjust = 0),
+        legend.key.size = unit(2, 'lines')) +
+  scale_color_manual(values = c("gray", "black")) +
+  geom_hline(yintercept = 0, linetype = "dashed")
+plot
