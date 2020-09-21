@@ -1,6 +1,8 @@
 voters <- readRDS("./temp/mke_voters.rds") %>% 
   filter(!is.na(Residence_Addresses_Longitude),
-         !is.na(Residence_Addresses_Latitude)) %>% 
+         !is.na(Residence_Addresses_Latitude),
+         !(Residence_Addresses_City %in% c("Whitefish Bay", "Bayside")),
+         Voters_FIPS != 101) %>% 
   mutate(Precinct = gsub("MT PLEASANT", "MOUNT PLEASANT", Precinct),
          Precinct = gsub(" WARD ", "$", Precinct))
 
@@ -54,9 +56,7 @@ voters <- left_join(voters, locs_16,
 voters <- left_join(voters,
                     readRDS("./temp/mke_2020_prim.rds")) %>% 
   rename(primary_20 = `Presidential_Primary_2020-04-07`) %>% 
-  mutate(primary_20 = ifelse(primary_20 == "Y", 1, 0)) %>% 
-  filter(pp_lat_16 != 0,
-         pp_lat_20 != 0)
+  mutate(primary_20 = ifelse(primary_20 == "Y", 1, 0))
 
 
 

@@ -129,7 +129,8 @@ df <- df %>%
   mutate_at(vars(TrMean, PreMean, TrMean2, PostMean),
             ~ ifelse(name == "Income", dollar(round(as.numeric(gsub(",", "", .)))), .)) %>% 
   mutate_at(vars(TrMean, PreMean, TrMean2, PostMean),
-            ~ ifelse(substring(name, 1, 1) == "%", percent(as.numeric(.), accuracy = .1), .))
+            ~ ifelse(substring(name, 1, 1) == "%", percent(as.numeric(.), accuracy = .1), .)) %>% 
+  filter(!is.na(name))
 
 colnames(df) <- c("", "Treated", "Control", "Treated", "Control", "Mean Diff", "eQQ Med", "eQQ Mean", "eQQ Max")
 

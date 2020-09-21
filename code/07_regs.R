@@ -22,7 +22,7 @@ reg_data <- left_join(reg_data, select(pot, LALVOTERID, GEOID, Residence_Address
 covid <- fread("./raw_data/ts_0421.csv")
 
 reg_data <- left_join(reg_data, select(covid, GEOID, DEATHS, POSITIVE, NEGATIVE)) %>% 
-  mutate_at(vars(DEATHS, POSITIVE, NEGATIVE), ~ ifelse(. == -999, 2, .)) %>%
+  mutate_at(vars(DEATHS, POSITIVE, NEGATIVE), ~ ifelse(. == -999 | is.na(.), 2, .)) %>%
   mutate(rate2 = ifelse(POSITIVE == -999 | NEGATIVE == -999, NA, POSITIVE / (POSITIVE + NEGATIVE)))
 ###################################################
 
@@ -65,9 +65,7 @@ f4 <- primary_20 ~ mke + black + black_mke +
            rep + male + County
 
 f5 <- primary_20 ~ mke + black + black_mke +
-  primary_18 + primary_16 + white + 
-  latino + asian + income + college + dem +
-  rep + male + County + rate2
+  County + rate2
 
 models <- lapply(c(f1, f2, f3, f4, f5), function(f){
   m <- lm(f, inter, weights = weights)
@@ -133,7 +131,7 @@ stargazer(models,
           column.labels = c("0.5", "1", "2", "5", "10"),
           dep.var.labels = c("Turnout"),
           dep.var.caption = "Maximum Allowed Distance (in miles)",
-          title = "\\label{tab:reg-table} Turnout in 2020 Primary",
+          title = "\\label{tab:reg-m-5} Turnout in 2020 Primary",
           table.placement = "H",
           omit.stat = c("f", "ser", "aic"),
           keep = c("mke", "black", "black_mke", "rate2", "Constant"),

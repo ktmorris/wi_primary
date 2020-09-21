@@ -24,16 +24,20 @@ h <- fortify(counties)
 
 j <- fortify(border)
 
-ggplot() +
-  geom_polygon(data = h, aes(x = long, y = lat, group = group), fill = "gray", color = "black") +
-  geom_path(data = j, aes(x = long, y = lat, group = group), size = 2) +
+map <- ggplot() +
+  geom_polygon(data = h, aes(x = long, y = lat, group = group), fill = "#EEEEEE", color = "black") +
+  geom_path(data = j, aes(x = long, y = lat, group = group), size = 1) +
   coord_equal(xlim = c(-88.2, -87.75), ylim = c(42.8, 43.3)) +
-  geom_point(data = pps, aes(x = long, y = lat), color = "red") +
+  geom_point(data = pps, aes(x = long, y = lat), color = "red", size = 1) +
   facet_wrap( ~ year) +
   theme_bc(legend.position = "bottom",
            axis.ticks = element_blank(),
            axis.text = element_blank(),
            panel.background = element_rect(fill = alpha("#0077be", 0.5)),
            panel.grid.major = element_blank(), panel.grid.minor = element_blank(),
-           panel.border = element_blank()) +
-  labs(x = NULL, y = NULL)
+           panel.border = element_blank(),
+           base_family = "LM Roman 10") +
+  labs(x = NULL, y = NULL,
+       caption = "Source: Wisconsin Elections Commission.\nNotes: Thin lines show county borders. Thick lines show Milwaukee City border.")
+map
+saveRDS(map, "temp/map.rds")
