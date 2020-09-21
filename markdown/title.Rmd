@@ -1,0 +1,26 @@
+---
+title: "Voting in a Pandemic: COVID-19 and Primary Turnout in Milwaukee, Wisconsin"
+subtitle: ""
+author:
+  - Kevin Morris^[Researcher, Brennan Center for Justice at NYU School of Law, 120 Broadway Ste 1750, New York, NY 10271 (kevin.morris@nyu.edu)]
+  - Peter Miller^[Researcher, Brennan Center for Justice at NYU School of Law, 120 Broadway Ste 1750, New York, NY 10271 (peter.miller@nyu.edu)]
+institute: "Brennan Center for Justice at NYU Law School"
+date: "`r format(Sys.time(), '%B %d, %Y')`"
+output:
+  bookdown::pdf_document2:
+    toc: no
+    fig_caption: yes
+    latex_engine: xelatex
+    keep_tex: true
+geometry: margin = 1in
+# mainfont: Garamond
+link-citations: yes
+bibliography: "wi_primary.bib"
+mainfont: Times New Roman
+fontsize: 12pt
+header-includes:
+    - \usepackage{rotating}
+    - \usepackage{setspace}
+abstract: |
+  We report the first study of the effect of the novel coronavirus SARS-CoV-2 (COVID-19) on polling place consolidation and voting behavior. We draw upon individual-level observations from Milwaukee matched to similar observations in the surrounding municipalities to assess whether fewer polling places in the primary election decreased turnout in the city. We find polling place consolidation reduced overall turnout by about 8.9 points and reduced turnout among the Black population in the city by about 10.4 points. We conclude on the basis of these data that conversion to widespread absentee voting in the general election will result in disenfranchisement, which may be particularly marked among racial minorities.
+---

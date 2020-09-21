@@ -16,6 +16,7 @@
   \usepackage{unicode-math}
   \defaultfontfeatures{Scale=MatchLowercase}
   \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
+  \setmainfont[]{Times New Roman}
 \fi
 % Use upquote if available, for straight quotes in verbatim environments
 \IfFileExists{upquote.sty}{\usepackage{upquote}}{}
@@ -38,7 +39,6 @@
 \IfFileExists{bookmark.sty}{\usepackage{bookmark}}{\usepackage{hyperref}}
 \hypersetup{
   pdftitle={Voting in a Pandemic: COVID-19 and Primary Turnout in Milwaukee, Wisconsin},
-  pdfauthor={Kevin Morris; Peter Miller},
   hidelinks,
   pdfcreator={LaTeX via pandoc}}
 \urlstyle{same} % disable monospaced font for URLs
@@ -93,13 +93,13 @@
   {\par}
 
 \title{Voting in a Pandemic: COVID-19 and Primary Turnout in Milwaukee, Wisconsin}
-\author{Kevin Morris\footnote{Researcher, Brennan Center for Justice at NYU School of Law, 120 Broadway Ste 1750, New York, NY 10271 (\href{mailto:kevin.morris@nyu.edu}{\nolinkurl{kevin.morris@nyu.edu}})} \and Peter Miller\footnote{Researcher, Brennan Center for Justice at NYU School of Law, 120 Broadway Ste 1750, New York, NY 10271 (\href{mailto:peter.miller@nyu.edu}{\nolinkurl{peter.miller@nyu.edu}})}}
-\date{September 21, 2020}
+\author{}
+\date{\vspace{-2.5em}September 21, 2020}
 
 \begin{document}
 \maketitle
 \begin{abstract}
-We report the first study of the effect of the novel coronavirus SARS-CoV-2 (COVID-19) on polling place consolidation and voting behavior. We draw upon individual-level observations from Milwaukee matched to similar observations in the surrounding municipalities to assess whether fewer polling places in the primary election decreased turnout in the city. We find polling place consolidation reduced overall turnout by about 8.5 points and reduced turnout among the Black population in the city by about 10.2 points. We conclude on the basis of these data that conversion to widespread absentee voting in the general election will result in disenfranchisement, which may be particularly marked among racial minorities.
+We report the first study of the effect of the novel coronavirus SARS-CoV-2 (COVID-19) on polling place consolidation and voting behavior. We draw upon individual-level observations from Milwaukee matched to similar observations in the surrounding municipalities to assess whether fewer polling places in the primary election decreased turnout in the city. We find polling place consolidation reduced overall turnout by about 8.9 points and reduced turnout among the Black population in the city by about 10.4 points. We conclude on the basis of these data that conversion to widespread absentee voting in the general election will result in disenfranchisement, which may be particularly marked among racial minorities.
 \end{abstract}
 
 \pagenumbering{gobble}
@@ -108,46 +108,42 @@ We report the first study of the effect of the novel coronavirus SARS-CoV-2 (COV
 \pagenumbering{arabic}
 \doublespacing
 
-The Wisconsin presidential primary election provides a valuable means to assess how the novel coronavirus SARS-CoV-2 (COVID-19) has altered voting behavior in a natural experiment. The weeks leading up to the Wisconsin primary election on April 7 were tumultuous.\footnote{The primary ballot included Democratic and Republican presidential primaries, a race for a seat on the state supreme court, seats on the state court of appeals and the state courts, and a statewide referendum. While Milwaukee County and the surrounding counties are in different Appeals Court districts, both judicial districts had race on the ballot, though the race in Milwaukee County was uncontested. At circuit court level, only Ozaukee County did not have a judicial race in the election. There is, in short, little cause for concern of unique campaign effects biasing the results we report below.} Democratic Governor Tony Evers declared a state of emergency on March 12 when there were 8 confirmed COVID-19 cases.\footnote{See \url{https://www.dhs.wisconsin.gov/covid-19/cases.htm}.} On March 17, Evers issued a ban on all gatherings of more than 10 people.\footnote{See \url{https://evers.wi.gov/Documents/COVID19/UPDATEDOrder10People.pdf}.} On March 27, Evers called for every voter in the state to be sent an absentee ballot (Wise \protect\hyperlink{ref-Wise2020}{2020}). The Republican-controlled legislature refused this initiative. The weekend before the election, Evers called an emergency session of the legislature hoping to postpone the date of the election. This effort, too, was rebuffed. As a last resort, Evers issued an executive order on April 6 to delay the primary election until June 9\footnote{See \url{https://bit.ly/3fJTqZT}.} which was overturned by the state supreme court.\footnote{See \url{https://wapo.st/2Cg79sK}.} The U.S. Supreme Court also ruled absentee ballots would be invalid if the ballot was not hand-delivered by April 7 or postmarked by election day and received by April 13.\footnote{See \url{https://www.supremecourt.gov/opinions/19pdf/19a1016_o759.pdf}.}
+The Wisconsin presidential primary election provides a valuable means to assess how the novel coronavirus SARS-CoV-2 (COVID-19) has altered voting behavior in a natural experiment. The weeks leading up to the Wisconsin primary election on April 7 were tumultuous. Democratic Governor Tony Evers declared a state of emergency on March 12 when there were 8 confirmed COVID-19 cases.\footnote{See \url{https://www.dhs.wisconsin.gov/covid-19/cases.htm}.} On March 17, Evers issued a ban on all gatherings of more than 10 people.\footnote{See \url{https://evers.wi.gov/Documents/COVID19/UPDATEDOrder10People.pdf}.} On March 27, Evers called for every voter in the state to be sent an absentee ballot (Wise \protect\hyperlink{ref-Wise2020}{2020}). The Republican-controlled legislature refused this initiative. The weekend before the election, Evers called an emergency session of the legislature hoping to postpone the date of the election. This effort, too, was rebuffed. As a last resort, Evers issued an executive order on April 6 to delay the primary election until June 9\footnote{See \url{https://bit.ly/3fJTqZT}.} which was overturned by the state supreme court.\footnote{See \url{https://wapo.st/2Cg79sK}.} The U.S. Supreme Court also ruled absentee ballots would be invalid if the ballot was not hand-delivered by April 7 or postmarked by election day and received by April 13.\footnote{See \url{https://www.supremecourt.gov/opinions/19pdf/19a1016_o759.pdf}.}
 
-These maneuvers occurred against the backdrop of overstretched electoral resources following from the increasing severity of the COVID-19 pandemic. The \emph{Milwaukee Journal Sentinel} observed the state was short some 7 thousand poll workers on March 31 (Marley and Beck \protect\hyperlink{ref-Marley2020}{2020}). The reduction in polling places was acute in Milwaukee. Five polling places remained open, compared with 182 in November of 2016.\footnote{See \url{https://elections.wi.gov/elections-voting/2016/fall} and \url{https://elections.wi.gov/node/6524}.} Even as polling places were consolidated, a surge in absentee voting occurred. While 831 thousand ballots were cast by mail in the 2016 \emph{general election}, more than 1.09 million mail ballots were returned in the primary this year.\footnote{See \url{https://elections.wi.gov/index.php/node/4414} and \url{https://elections.wi.gov/node/6847}.} Nonetheless, there is evidence for ``leaked'' absentee ballots (Stewart \protect\hyperlink{ref-Stewart2010}{2010}): only 84.8\% of mail ballots delivered to voters were ultimately returned in time to be counted. The results of our analyses below show the consolidation of polling places reduced turnout in the election, and this effect was larger among the Black population in the city.
+These maneuvers occurred against the backdrop of overstretched electoral resources following from the increasing severity of the COVID-19 pandemic. The \emph{Milwaukee Journal Sentinel} observed the state was short some 7 thousand poll workers on March 31 (Marley and Beck \protect\hyperlink{ref-Marley2020}{2020}), a shortage which led to widespread polling place consolidation. The reduction in polling places was acute in Milwaukee. Five polling places remained open, compared with 182 in November of 2016.\footnote{See \url{https://elections.wi.gov/elections-voting/2016/fall} and \url{https://elections.wi.gov/node/6524}.} Even as polling places were consolidated, a surge in absentee voting occurred. Statewide, more than 964 thousand ballots were cast by mail, compared with just 171 thousand in the 2016 presidential primary.\footnote{See \url{https://elections.wi.gov/sites/elections.wi.gov/files/2020-05/April\%202020\%20Absentee\%20Voting\%20Report.pdf}.} Nonetheless, there is evidence for ``leaked'' absentee ballots (Stewart \protect\hyperlink{ref-Stewart2010}{2010}): only 84.8 percent of mail ballots delivered to voters were ultimately returned in time to be counted. Past research indicates that, under normal circumstances, polling place consolidation leads to lower turnout (e.g.~Brady and Mcnulty \protect\hyperlink{ref-Brady2011}{2011}; McNulty, Dowling, and Ariotti \protect\hyperlink{ref-McNulty2009}{2009}). It is unclear, however, whether these negative effects could be offset but the massive increase in absentee voting in the context of the pandemic. The results of our analyses below show the consolidation of polling places reduced turnout in the election despite the absentee ballot wave, and this effect was larger among the Black population in the city.
 
 \hypertarget{prior-literature}{%
 \subsubsection*{Prior Literature}\label{prior-literature}}
 \addcontentsline{toc}{subsubsection}{Prior Literature}
 
-Disrupting one's routine with regard to voting -- whether by relocating or reducing the number of polling places -- reduces turnout by imposing new search and transportation costs on voters (Brady and Mcnulty \protect\hyperlink{ref-Brady2011}{2011}). A moved polling place reduced the likelihood of voting by about 5.5 points in a 2001 local election (Haspel and Knotts \protect\hyperlink{ref-Haspel2005}{2005}). Consolidation between 2000 and 2008 reduced county-level turnout by about nine-tenths of a point (Kropf and Kimball \protect\hyperlink{ref-Kropf2012}{2012}, 68). Increasing the distance to polls in California in 2003 reduced the likelihood of voting in person by between 2 and 4 points. Absentee voting is more likely as the distance to the polls increases, but this effect is not large enough to offset the decrease from consolidation itself (Brady and Mcnulty \protect\hyperlink{ref-Brady2011}{2011}). Consolidating polling places in a New York State local election reduced turnout by an average of 7 points (McNulty, Dowling, and Ariotti \protect\hyperlink{ref-McNulty2009}{2009}). A recent study of nine municipalities in Massachusetts and Minnesota found increasing the distance to the polls by about 0.25 miles reduces turnout by between 2 and 5 points, and that this effect is more pronounced among ``high-minority, low-income, and low-car-availability areas'' in the context of a non-presidential election (Cantoni \protect\hyperlink{ref-Cantoni2020}{2020}, 88).
+Disrupting one's routine with regard to voting -- whether by relocating or reducing the number of polling places -- reduces turnout by imposing new search and transportation costs on voters (Brady and Mcnulty \protect\hyperlink{ref-Brady2011}{2011}). A moved polling place reduced the likelihood of voting by about 5.5 points in a 2001 local election (Haspel and Knotts \protect\hyperlink{ref-Haspel2005}{2005}). Consolidation between 2000 and 2008 reduced county-level turnout by about nine-tenths of a point (Kropf and Kimball \protect\hyperlink{ref-Kropf2012}{2012}, 68). Increasing the distance to polls in California in 2003 reduced the likelihood of voting in person by between 2 and 4 points. Absentee voting is more likely as the distance to the polls increases, but (at least in past elections) this effect is not large enough to offset the decrease from consolidation itself (Brady and Mcnulty \protect\hyperlink{ref-Brady2011}{2011}). Consolidating polling places in a New York State local election reduced turnout by an average of 7 points (McNulty, Dowling, and Ariotti \protect\hyperlink{ref-McNulty2009}{2009}). A recent study of nine municipalities in Massachusetts and Minnesota found increasing the distance to the polls by about 0.25 miles reduces turnout by between 2 and 5 points, and that this effect is more pronounced among ``high-minority, low-income, and low-car-availability areas'' in the context of a non-presidential election (Cantoni \protect\hyperlink{ref-Cantoni2020}{2020}, 88).
 
 The effect of distance to the polling place on voting is nonlinear (Dyck and Gimpel \protect\hyperlink{ref-Dyck2005}{2005}, 541--42; Gimpel and Schuknecht \protect\hyperlink{ref-Gimpel2003}{2003}, 481--84). Dyck and Gimpel (\protect\hyperlink{ref-Dyck2005}{2005}) deploy observations ranging from .1 to 65 miles from the polling place. They report being one standard deviation from the polls (about 1.75 miles) reduces the likelihood of voting at the polls by 2.3 points, but makes absentee voting more likely by 0.9 points. A study of three counties in Maryland in the 2000 election finds moving 1 mile \emph{closer} to the polls makes voting \emph{more} likely by 0.45 points, while observing generally ``{[}t{]}urnout is highest when distances to the polling place are very short, and when they are excessively long, but lower in the middling ranges of distance'' (Gimpel and Schuknecht \protect\hyperlink{ref-Gimpel2003}{2003}, 481).
+
+The literature discussed above, however, examines the effect of polling place consolidation under more normal circumstances. It is unclear whether that is the case in elections held during a pandemic. Indeed, with more than 97 percent of polling places in Milwaukee City closed, the primary contest may be better understood as an example of conducting elections entirely by mail, as is the case in some western states. That reform increases turnout in Washington (Henrickson and Johnson \protect\hyperlink{ref-Henrickson2019}{2019}; Gerber, Huber, and Hill \protect\hyperlink{ref-Gerber2013}{2013}), decreases turnout in California (Elul, Freeder, and Grumbach \protect\hyperlink{ref-Elul2017}{2017}; Bergman and Yates \protect\hyperlink{ref-Bergman2011}{2011}; Kousser and Mullin \protect\hyperlink{ref-Kousser2007}{2007}), and has no significant effect in Oregon (Gronke and Miller \protect\hyperlink{ref-Gronke2012}{2012}). That the same reform has disparate effects where it has been adopted is one reason scholars are left unsatisfyingly answering the question about turnout effects of convenience voting reforms with both ``\,`no' and `yes'\,'' (Bergman \protect\hyperlink{ref-Bergman2015}{2015}).
 
 \hypertarget{data-and-research-design}{%
 \subsubsection*{Data and Research Design}\label{data-and-research-design}}
 \addcontentsline{toc}{subsubsection}{Data and Research Design}
 
-We use individual-level voter registration and turnout records from L2 Political to estimate all our models. In addition to providing the information available in the registered voter file, L2 provides estimates for voters' partisan affiliation (voters do not register with parties in Wisconsin), race, household income, and education. Milwaukee is the most segregated large American city with a substantial Black population (Frey \protect\hyperlink{ref-Frey2018}{2018}). This segregation makes L2's racial predictions more accurate \textbf{how do we know this?}. L2 also geocodes voters to their home addresses. The data indicates whether someone voted, but not vote mode (i.e.~if a voter cast her ballot absentee).
+We use individual-level voter registration and turnout records from L2 Political to estimate all our models. In addition to providing the information available in the registered voter file, L2 provides estimates for voters' partisan affiliation (voters do not register with parties in Wisconsin), race, household income, and education. Milwaukee is the most segregated large American city with a substantial Black population (Frey \protect\hyperlink{ref-Frey2018}{2018}). Because L2's racial estimates rely (in part) on neighborhood demongraphics, this segregation improves the quality of these estimates. Put differently, if a census tract is 98 percent white, estimates about any individual's race will be far more accurate than a tract in which 50 percent are white and 50 percent are Black. L2 also geocodes voters to their home addresses. The data indicates whether someone voted, but not vote mode (i.e.~if a voter cast her ballot absentee).
 
-Compared to Milwaukee, the rest of the state did not see such drastic consolidation of polling places. Outside of Milwaukee, the state had 10.2\% fewer polling places open in April 2020 than November 2016 (see Figure \ref{fig:map}). Residents of Milwaukee were also likely subjected to a \emph{second} treatment due to the severity of COVID-19. In Milwaukee County there had been roughly 14 positive tests for COVID-19 per 10,000 residents as of the date of the primary election, compared with 7.5 positive tests per 10,000 residents in Ozaukee County, and 4.4 and 4.2 in Washington and Waukesha Counties, respectively.\footnote{See \url{https://www.dhs.wisconsin.gov/covid-19/county.htm}.} Simply comparing the turnout of Milwaukee to the suburbs therefore cannot reveal the depressive effect of polling place consolidation alone, but rather the net effect of higher exposure to the pandemic \emph{combined with} poll site closures.
+Compared to Milwaukee, the rest of the state did not see such drastic consolidation of polling places. Outside of Milwaukee, the state had 10.2 percent fewer polling places open in April 2020 than November 2016 (see Figure \ref{fig:map}). But residents of Milwaukee were also likely subjected to a \emph{second} treatment due to the severity of COVID-19. In Milwaukee County there had been roughly 14 positive tests for COVID-19 per 10,000 residents as of the date of the primary election, compared with 7.5 positive tests per 10,000 residents in Ozaukee County, and 4.4 and 4.2 in Washington and Waukesha Counties, respectively.\footnote{See \url{https://www.dhs.wisconsin.gov/covid-19/county.htm}.} Simply comparing the turnout of Milwaukee to the suburbs therefore cannot reveal the depressive effect of polling place consolidation alone, but rather the net effect of higher exposure to the pandemic \emph{combined with} poll site closures.
 
-\begin{figure}[H]
-
-{\centering \includegraphics{mke_turnout_files/figure-latex/map-1} 
-
-}
-
-\caption{\label{fig:map}Polling Places in 2016 and 2020 Elections}\label{fig:map}
-\end{figure}
-
+FIGURE 1 ABOUT HERE
 Unfortunately, low-level data on the prevalence of COVID-19 on or before election day is unavailable. Shortly after the election the state began publishing counts at the census tract level, but these figures are not available for the period in which they were most relevant --- that is, before voters headed to the polls.
+
+The primary ballot included Democratic and Republican presidential primaries, a race for a seat on the state supreme court, seats on the state court of appeals and the state courts, and a statewide referendum. While Milwaukee County and the surrounding counties are in different Appeals Court districts, both judicial districts had race on the ballot, though the race in Milwaukee County was uncontested. At circuit court level, only Ozaukee County did not have a judicial race in the election. There is, in short, little cause for concern of unique campaign effects biasing our results. The only contextual differences between Milwaukee City and its suburbs are therefore the polling place consolidation and disparate prevalence of COVID-19.
 
 To isolate the effect of polling place consolidation from COVID-19, we leverage electoral jurisdiction boundaries as an assignment to treatment mechanism (Kaplan and Yuan \protect\hyperlink{ref-Kaplan2020}{2020}; Cantoni \protect\hyperlink{ref-Cantoni2020}{2020}). Our primary design is a regression discontinuity in space that exploits the municipal boundary line to compare turnout for voters on either side of the ``cutpoint'' boundary (Keele, Titiunik, and Zubizarreta \protect\hyperlink{ref-Keele2015}{2015}). Research from New Orleans indicates that COVID-19 is clustered at the neighborhood level (van Holm, Wyczalkowski, and Dantzler \protect\hyperlink{ref-vanHolm2020}{2020}). Because of how close these voters lived to one another, it is likely they went about their daily lives in the same local milieu. We therefore assume that, although they lived in different municipalities, they were similarly exposed to COVID-19. Put differently, we \emph{directly} control for a host of covariates from the voter file, and we \emph{indirectly} control for COVID-19 by selecting pairs of treated and control voters who live in very close proximity to one another.
 
-The regression discontinuity framework, however, assumes that individuals cannot ``select'' around the cutpoint; that within a narrow window individuals on either side of the cutpoint are identical. Voters very near one another but on opposite sides of the border might differ in meaningful ways. As discussed above, the Milwaukee area is highly segregated, making this potential problem even more salient --- voters on either side of the administrative boundary might be substantially different. Keele, Titiunik, and Zubizarreta (\protect\hyperlink{ref-Keele2015}{2015}) offers one way of dealing with this problem: ``When there appears to be strong self-selection around the border of interest, one alternative is to combine designs and to assume that, after conditioning on covariates, treatment assignment is as-if randomized for those who live near the city limit'' (page 228).
+The regression discontinuity framework, however, assumes that individuals cannot ``select'' around the cutpoint; that within a narrow window individuals on either side of the cutpoint are identical. This may be too strong of an assumption: voters very near one another but on opposite sides of the border might differ in meaningful ways, a problem exacerbated by Milwaukee's extreme segregation. Keele, Titiunik, and Zubizarreta (\protect\hyperlink{ref-Keele2015}{2015}) offers one way of dealing with this problem: ``When there appears to be strong self-selection around the border of interest, one alternative is to combine designs and to assume that, after conditioning on covariates, treatment assignment is as-if randomized for those who live near the city limit'' (page 228). They use this approach to test whether ballot intiatives increase turnout in Milwaukee City relative to the city's suburbs.
 
-We adopt this approach by genetically matching --- which is to say we use an algorithm that ``automatically finds the set of matches that minimizes the discrepancy between the distribution of potential confounders in the treated and control groups'' (Sekhon \protect\hyperlink{ref-Sekhon2009}{2009}, 499, See \protect\hyperlink{ref-Sekhon2011}{2011} for an implementation for of this algorithm) --- each registered voter in Milwaukee City to two voters who live outside the city but in Milwaukee, Waukesha, Washington, or Ozaukee County, which each share a border with Milwaukee City. Because the villages of Whitefish Bay and Bayside sent mail ballot applications to all registered voters --- potentially driving up their turnout relative to Milwaukee City (Gilbert \protect\hyperlink{ref-Gilbert2020}{2020}). We thus exclude these villages as potential controls.
+We adopt this approach by genetically matching each registered voter in Milwaukee City to two voters who live outside the city but in Milwaukee, Waukesha, Washington, or Ozaukee County, which each share a border with Milwaukee City. Genetic matching involves using an algorithm that ``automatically finds the set of matches that minimizes the discrepancy between the distribution of potential confounders in the treated and control groups'' (Sekhon \protect\hyperlink{ref-Sekhon2009}{2009}, 499). The villages of Whitefish Bay and Bayside sent mail ballot applications to all registered voters, potentially driving up their turnout relative to Milwaukee City (Gilbert \protect\hyperlink{ref-Gilbert2020}{2020}). We thus exclude these villages as potential controls.
 
 Although these counties include some urban areas, we refer to the controls as suburban voters for convenience. To be sure, the vast majority of our eventual control voters live very close to the Milwaukee border --- and are thus in fact suburbanites in the traditional sense. Treated and control voters are matched exactly on turnout in the 2016 and 2018 primary elections, and on their partisan affiliation. Voters are also matched on their gender, their household income, whether they have a college education, and their race / ethnicity. Voters are also matched on their latitude and longitude to ensure physical proximity to one another.
 
-Although this differs from a regression discontinuity in which there is a band around a cutpoint, the logic is the same. As the maximum allowed distance between treated and control voters approaches zero, we are in fact reducing the band around the cutpoint represented by the municipal border. For instance, when the maximum distance allowed between a treated voter and her match is 0.5 miles, each voter will live (on average) within 0.25 miles of the border. It is important to note that this is more conservative than matching treated and control voters within a buffer around the border --- not only must pairs both live within a buffer, they must also live near one another \emph{within} that buffer.
+Although this differs from a regression discontinuity in which there is a band around a cutpoint, the logic is the same. As the maximum allowed distance between treated and control voters approaches zero, we are in fact reducing the band around the cutpoint represented by the municipal border. For instance, when the maximum distance allowed between a treated voter and her match is 0.5 miles, each voter will live (on average) within 0.25 miles of the border. It is important to note that this is more conservative than matching treated and control voters within a buffer around the border --- not only must pairs both live within a buffer, they must also live near one another within that buffer.
 
 By beginning with a strict geographic restriction, we isolate the causal effect of polling place consolidation on turnout. To estimate the net effect of polling place consolidation \emph{and} COVID-19, we then expand the maximum distance allowed between treated and control voters. While we cannot directly observe the effect of COVID-19, we can observe whether the overall treatment effect grows larger as we introduce more distance between the pairs. Because we have controlled for other relevant covariates, the only additional difference between treated and control voters will be their COVID-19 exposure.
 
@@ -157,14 +153,53 @@ Hypothesis A: When the maximum distance allowed between treated and control vote
 
 Hypothesis B: As we allow the maximum allowed distance to increase, the negative treatment effect will grow larger. We expect that the worse effects of COVID-19 depressed turnout above-and-beyond the effects of consolidated polling places in Milwaukee City.
 
-Our results are likely to be conservative for two reasons. Firstly, some municipalities outside of Milwaukee City reduced their number of polling places. This means some of our control voters received a very weak treatment --- therefore collapsing the difference between the treated and control voters and pushing our estimated treatment effect toward zero. Secondly, the elections in Milwaukee City and County were more highly contested than those outside the areas. Our treated voters might thus have been disproportionately mobilized, leading to a reduced estimated treatment effect.
+Our results are likely to be somewhat conservative. Some municipalities outside of Milwaukee City reduced their number of polling places (see Figure \ref{fig:map}). This means some of our control voters received a very weak treatment --- therefore collapsing the difference between the treated and control voters and pushing our estimated treatment effect toward zero.
 
 \hypertarget{results}{%
 \subsubsection*{Results}\label{results}}
 \addcontentsline{toc}{subsubsection}{Results}
 
-We begin by presenting the results of the matching model, where each treated voter is matched with two control voters.\footnote{Due to computing constraints, we use a 1\% sample of voters (stratified by treatment status) \emph{to generate weights used in the actual matching model} though the whole pool is eventually used for the matching procedure itself.} Matching is done with replacement. Table \ref{tab:match} demonstrates that the matching procedure was largely successful: we achieve substantial improvement along all characteristics. Milwaukee City is far less white than the suburbs; has far lower incomes and education levels; and saw much lower turnout in recent primary elections. We do not include latitudes and longitudes in the balance table but the average distance between a treated voter and her controls is 2.3 miles. Matching is done with replacement, and ties are broken randomly.
+We begin by presenting the results of the matching model, where each treated voter is matched with two control voters.\footnote{Due to computing constraints, we use a 1\% sample of voters (stratified by treatment status) \emph{to generate weights used in the actual matching model} though the whole pool is eventually used for the matching procedure itself.} Table \ref{tab:match} demonstrates that the matching procedure was largely successful: we achieve substantial improvement along all characteristics. Milwaukee City is far less white than the suburbs; has far lower incomes and education levels; and saw much lower turnout in recent primary elections. We do not include latitudes and longitudes in the balance table but the average distance between a treated voter and her controls is 2.3 miles. Matching is done with replacement, and ties are broken randomly.
 
+TABLE 1 ABOUT HERE
+
+Table \ref{tab:reg-table} presents the results of ordinary least squares regressions testing the treatment effect. In Table \ref{tab:reg-table} we require treated and control voters to live within 0.5 miles of one another.\footnote{A treated voter might live within the cutoff distance from one of her controls but not the other. The regression weights are updated for each regression to reflect this possibility.} For this reason, the number of observations in Table \ref{tab:reg-table} is relatively low: most Milwaukee voters do not live within 0.5 miles of the municipal border and a suburban control, and are thus excluded. In fact, just 13 percent of registered voters in Milwaukee City (and their matches) are included in this specification. The dependent variable takes the value 1 if a voter cast a ballot in the April primary, and 0 if she did not. We also test whether the treatment effect was different for Black voters than for other voters which Cantoni (\protect\hyperlink{ref-Cantoni2020}{2020}) indicates is possible. Models 1 and 3 include just the treatment variable (and, in Model 3, the interaction term) while Models 2 and 4 add in the variables on which the matching was performed (but without latitude and longitude).
+
+Although COVID-19 data is not available prior to the election, the Department of Health Services began releasing this data at the census tract level shortly after the election. We use cumulative positivity rates from April 21 --- two weeks after the election --- to proxy potential COVID-19 rates as of the election as a robustness check in Model 5. Insofar as these are correlated with COVID prevalence on election day, they may be probative to the direct effect of COVID-19 on turnout.\footnote{Positive test rates are calculated as positive counts divided by the sum of positive and negative counts. The Department of Health Services replaces counts of less than 5 with ``-999;'' we re-code these at the mean ``2.'' See: \url{https://data.dhsgis.wi.gov/datasets/covid-19-historical-data-table}.} However, because the COVID data is not available as of the primary election, Model 5 is not intended to provide definitive proof of the relationship between virus prevalence and turnout. In each model, robust standard errors are clustered at the level of the match (Abadie and Spiess \protect\hyperlink{ref-Abadie2019}{2019}).
+
+TABLE 2 ABOUT HERE
+
+Models 1 and 2 indicate that turnout was depressed by roughly 8.9 percentage points in the April primary in Milwaukee City relative to suburban voters. Models 3 and 4 indicate that this decrease was especially pronounced among Black voters, who saw turnout nearly 10.4 percentage points below that of their suburban matches. Model 5 indicates that turnout was lower where a higher share of cumulative COVID-19 tests were positive two weeks after the election. Although controlling for positive test rates slightly decreases the interaction effect, it leaves the estimate for non-Black voters unchanged. That the treatment effect is largely impervious to this proxy for COVID-19 prevalence indicates that the geographic restriction effectively accounts for exposure to the pandemic. The large treatment effect supports Hypothesis A.
+
+We are also interested in whether the size of the treatment effect grows as we include pairs who live further away from one another. Figure \ref{fig:coef-plot} re-estimates of Model 3 from Table \ref{tab:reg-table} using different maximum distances between pairs. As the maximum distance between treated and control voters grows, the number of observations also grows to include all registered voters in Milwaukee City and their matches.\footnote{The interaction effect becomes non-significant at the narrowest bands. This is probably due more to the fact that very few treated Black voters lived near the municipal border and had matches just on the other side. In an alternative model, where we match all Milwaukee voters within 0.125 of the boundary to suburban voters within the same distance of the boundary, we maintain excellent covariate matches and the interaction effect is significant at the 99\% confidence level. The coefficient on Black × Lives in Milwaukee in this model is -2.6 points.}
+
+FIGURE 2 ABOUT HERE
+
+As the maximum distance between treated and control voters increases, the overall depressive effect and interaction effect grow in magnitude. It is important to note that this is not due to different underlying propensities to vote: the matching procedure requires that the participation (or lack thereof) of treated voters in the 2016 and 2018 primaries is exactly mirrored by their controls. The difference in overall treatment effect between the half-mile and most lenient models is roughly 1.3 percentage points (the interaction effect grows by 4.7 percentage points). Thus COVID-19 likely reduced turnout relative to the suburbs (through mechanisms other than polling place consolidation) by 1.3 percentage points for non-Black voters, and as much as 6.0 percentage points for Black voters. Given the extreme racial disparities of COVID-19 in Wisconsin (Hayda \protect\hyperlink{ref-Hayda2020}{2020}) it is unsurprising that these ``direct effects'' are so much greater for Black voters. This provides evidence to support Hypothesis B.
+
+\hypertarget{discussion}{%
+\subsubsection*{Discussion}\label{discussion}}
+\addcontentsline{toc}{subsubsection}{Discussion}
+
+On the one hand, polling place closures have long been understood to reduce turnout among voters. On the other hand, when jurisdictions have switched to primarily vote by mail systems, turnout has hardly changed. In the face of COVID-19, it was unclear how closed polling places would affect turnout. The enormous surge in absentee ballots indicated that the negative turnout effects might not have been large, but reporting of extensive lines for in-person voting on election day in Milwaukee (Viebeck et al. \protect\hyperlink{ref-Viebeck2020}{2020}) led us to expect that there were measurable negative turnout effects.
+
+This note makes clear that polling place closures reduced turnout in the 2020 primary in Milwaukee in the context of COVID-19, despite unprecedented demand for absentee ballots. The 8.9 percentage point decrease we observe is quite large; this effect amounts to about a third of the 26.1 percent turnout among control voters. This demobilizing effect in Wisconsin is also better described as logarithmically approaching a limit rather than the nonlinear effect found in prior studies. The case of Milwaukee also sheds some light on the direct effect of COVID-19 on turnout. We know that COVID-19 was more widespread in Milwaukee City at the time of the election. Expanding the distance between treated and control voters led to larger treatment effects. Because the only thing varying in these specifications was space --- and, therefore, COVID-19 exposure --- this provides some evidence that COVID-19 directly reduced turnout.
+
+These data have two boundary conditions it is important to bear in mind. First, the onset of the pandemic and the timing of the Wisconsin primary did not allow time for a robust public messaging campaign about mail voting options and it may be the case that elections held after the initial phase of the pandemic will show a smaller effect. Second, it may be the case that the larger depressive effect for Black rather than for non-Black voters that we observe is a product of the relatively high segregation rate in Milwaukee compared to other American cities. Why polling place consolidation disproportionately depressed turnout among Black voters is unclear and should be the focus of future research based in other localities. This finding, nonetheless, raises concerns about racial representation in the November 2020 elections as jurisdictions shift to greater access to mail ballots. The City of Milwaukee may well have learned from their April experience: in the August partisan primary, there were 168 polling places open in the city.\footnote{See \url{https://elections.wi.gov/node/6527}.}
+
+This note answers just one question related to the effect of COVID-19: given the pandemic, how do polling place closures affect turnout? Future research must consider the overall turnout and representational impacts of COVID-19 on this year's contests. It is worth noting that recently published research found that the April primary was not linked to any surge in COVID-19 in Wisconsin (Leung et al. \protect\hyperlink{ref-Leung2020}{2020}), which should allay concerns that polling places can only be kept open at the expense of public health. The primary elections in Milwaukee, Wisconsin, make one thing clear: even as many voters transition to vote-by-mail in the face of a pandemic, polling place consolidation can still have disenfranchising effects --- particularly for Black voters.
+
+\newpage
+\begin{figure}[H]
+
+{\centering \includegraphics{mke_turnout_files/figure-latex/map-1} 
+
+}
+
+\caption{\label{fig:map}Polling Places in 2016 and 2020 Elections}\label{fig:map}
+\end{figure}
+
+\newpage
 \begin{singlespace}
 \begin{table}[H]
 
@@ -177,35 +212,29 @@ We begin by presenting the results of the matching model, where each treated vot
 \cmidrule(l{3pt}r{3pt}){2-3} \cmidrule(l{3pt}r{3pt}){4-5} \cmidrule(l{3pt}r{3pt}){6-9}
  & Treated & Control & Treated & Control & Mean Diff & eQQ Med & eQQ Mean & eQQ Max\\
 \midrule
-\% Voted in 2016 Primary & 27.0\% & 52.0\% & 27.0\% & 27.0\% & 100.00 & 100.00 & 100.00 & 100.00\\
-\% Voted in 2018 Primary & 15.0\% & 28.0\% & 15.0\% & 15.0\% & 100.00 & 100.00 & 100.00 & 100.00\\
-\% Male & 43.0\% & 46.0\% & 43.0\% & 43.0\% & 99.99 & 99.99 & 99.99 & 99.99\\
-\% Democrats & 66.0\% & 21.0\% & 66.0\% & 66.0\% & 99.99 & 99.99 & 99.99 & 99.99\\
-\% Republican & 9.0\% & 59.0\% & 9.0\% & 9.0\% & 99.99 & 99.99 & 99.99 & 99.99\\
+\% Voted in 2016 Primary & 26.8\% & 52.0\% & 26.8\% & 26.8\% & 100.00 & 100.00 & 100.00 & 100.00\\
+\% Voted in 2018 Primary & 15.2\% & 28.2\% & 15.2\% & 15.2\% & 100.00 & 100.00 & 100.00 & 100.00\\
+\% Male & 42.6\% & 45.8\% & 42.6\% & 42.6\% & 99.99 & 99.99 & 99.99 & 99.99\\
+\% Democrats & 65.5\% & 20.8\% & 65.5\% & 65.5\% & 99.99 & 99.99 & 99.99 & 99.99\\
+\% Republican & 8.6\% & 58.9\% & 8.6\% & 8.6\% & 99.99 & 99.99 & 99.99 & 99.99\\
 Income & \$59,317 & \$99,178 & \$59,317 & \$59,333 & 99.96 & 99.96 & 99.91 & 99.84\\
-\% with Collegiate Education & 13.0\% & 33.0\% & 13.0\% & 13.0\% & 100.00 & 100.00 & 100.00 & 100.00\\
-\% White & 46.0\% & 76.0\% & 46.0\% & 46.0\% & 100.00 & 100.00 & 100.00 & 100.00\\
-\% Black & 31.0\% & 1.0\% & 31.0\% & 31.0\% & 100.00 & 100.00 & 100.00 & 100.00\\
-\% Latino & 9.0\% & 3.0\% & 9.0\% & 9.0\% & 100.00 & 100.00 & 100.00 & 100.00\\
-\% Asian & 2.0\% & 2.0\% & 2.0\% & 2.0\% & 100.00 & 100.00 & 100.00 & 100.00\\
+\% with Collegiate Education & 12.7\% & 33.2\% & 12.7\% & 12.7\% & 100.00 & 100.00 & 100.00 & 100.00\\
+\% White & 46.3\% & 76.1\% & 46.3\% & 46.3\% & 100.00 & 100.00 & 100.00 & 100.00\\
+\% Black & 30.8\% & 0.8\% & 30.8\% & 30.8\% & 100.00 & 100.00 & 100.00 & 100.00\\
+\% Latino & 8.8\% & 3.3\% & 8.8\% & 8.8\% & 100.00 & 100.00 & 100.00 & 100.00\\
+\% Asian & 1.9\% & 1.7\% & 1.9\% & 1.9\% & 100.00 & 100.00 & 100.00 & 100.00\\
 \bottomrule
 \end{tabular}}
 \end{table}
 \end{singlespace}
 
-Table \ref{tab:reg-table} presents the results of ordinary least squares regressions testing the treatment effect. In Table \ref{tab:reg-table} we require treated and control voters to live within 0.5 miles of one another.\footnote{A treated voter might live within the cutoff distance from one of her controls but not the other. The regression weights are updated for each regression to reflect this possibility.} For this reason, the number of observations in Table \ref{tab:reg-table} is relatively low: most Milwaukee voters do not live within 0.5 miles of the municipal border and a suburban control, and are thus excluded. \textbf{do we want to include a footnote here that mentions the total observations in our study so the reader can know what proportion of the data we're working with is reflected in Table 2?} The dependent variable takes the value 1 if a voter cast a ballot in the April primary, and 0 if she did not. We also test whether the treatment effect was different for Black voters than for other voters which Cantoni (\protect\hyperlink{ref-Cantoni2020}{2020}) indicates is possible. Models 1 and 3 include just the treatment variable (and, in Model 3, the interaction term) while Models 2 and 4 add in the variables on which the matching was performed (but without latitude and longitude).
-
-Although COVID-19 data is not available prior to the election, the Department of Health Services began releasing this data at the census tract level shortly after the election. We use cumulative positivity rates from April 21 --- two weeks after the election --- to proxy potential COVID-19 rates as of the election as a robustness check in Model 5. Insofar as these are correlated with COVID prevalence on election day, they may be probative to the direct effect of COVID-19 on turnout.\footnote{Positive test rates are calculated as positive counts divided by the sum of positive and negative counts. The Department of Health Services replaces counts of less than 5 with ``-999;'' we re-code these at the mean ``2.'' See: \url{https://data.dhsgis.wi.gov/datasets/covid-19-historical-data-table}.} However, because the COVID data is not available as of the primary election, Model 5 is not intended to provide definitive proof of the relationship between virus prevalence and turnout. In each model, robust standard errors are clustered by at the level of the match (Abadie and Spiess \protect\hyperlink{ref-Abadie2019}{2019}).
-
+\newpage
 \begin{singlespace}
 
 \input{"../temp/reg.tex"}
 \end{singlespace}
 
-Models 1 and 2 indicate that turnout was depressed by roughly 8.6 percentage points in the April primary in Milwaukee City relative to suburban voters. Models 3 and 4 indicate that this decrease was especially pronounced among Black voters, who saw turnout nearly 10.2 percentage points below that of their suburban matches. Model 5 indicates that turnout was lower where a higher share of cumulative COVID-19 tests were positive two weeks after the election. Although controlling for positive test rates slightly decreases the interaction effect, it leaves the estimate for non-Black voters unchanged. That the treatment effect is largely impervious to this proxy for COVID-19 prevalence indicates that the geographic restriction effectively accounts for exposure to the pandemic. The large treatment effect supports Hypothesis A.
-
-We are also interested in whether the findings hold when we relax the geographic assumption by further restricting the maximum allowed distance and whether the size of the treatment effect grows as we include pairs who live further away from one another. Figure \ref{fig:coef-plot} re-estimates of Model 3 from Table \ref{tab:reg-table} using different maximum distances between pairs. As the maximum distance between treated and control voters grows, so too does the number of observations.\footnote{The interaction effect becomes non-significant at the narrowest bands. This is probably due more to the fact that very few treated Black voters lived near the municipal border and had matches just on the other side. In an alternative model, where we match all Milwaukee voters within 0.125 of the boundary to suburban voters within the same distance of the boundary, we maintain excellent covariate matches and the interaction effect is significant at the 99\% confidence level. The coefficient on Black × Lives in Milwaukee in this model is -2.6 points.}
-
+\newpage
 \begin{figure}[H]
 
 {\centering \includegraphics{mke_turnout_files/figure-latex/plot-1} 
@@ -214,20 +243,6 @@ We are also interested in whether the findings hold when we relax the geographic
 
 \caption{\label{fig:coef-plot}Estimated Depressive Effect of Living in Milwaukee, 2020 Primary}\label{fig:plot}
 \end{figure}
-
-As we allow the maximum distance between treated and control voters to grow, so too does the apparent exposure to COVID-19. When treated and control voters live within a half-mile of one another, treated voters live in tracts where the positive test rate was 2.2 percentage points higher than their controls. However, when all matched pairs are retained (regardless of their distance from one another) treated voters' tracts had positive test rates 6.3 points higher than their controls.
-
-As exposure to COVID-19 increases for treated voters relative to control voters, the overall depressive effect and interaction effect grow in magnitude. The difference in overall treatment effect between the half-mile and most lenient models is roughly 1.4 percentage points (the interaction effect grows by 4.3 percentage points). Thus COVID-19 likely reduced turnout relative to the suburbs (through mechanisms other than polling place consolidation) by 1.4 percentage points for non-Black voters, and as much as 5.7 percentage points for Black voters. This provides evidence to support Hypothesis B.
-
-\hypertarget{discussion}{%
-\subsubsection*{Discussion}\label{discussion}}
-\addcontentsline{toc}{subsubsection}{Discussion}
-
-Polling place closures have long been understood to reduce turnout among voters. This note makes clear that polling place closures reduced turnout in the 2020 primary in Milwaukee in the context of COVID-19 and the resulting unprecedented demand for absentee ballots. The 8.6 percentage point decrease we observe is quite large; this effect amounts to about a third of the 26.1\% turnout among control voters. This demobilizing effect in Wisconsin is also better described as logarithmically approaching a limit rather than the nonlinear effect found in prior studies. The case of Milwaukee also sheds some light on the direct effect of COVID-19 on turnout. We know that COVID-19 was more widespread in Milwaukee City at the time of the election. Expanding the distance between treated and control voters led to larger treatment effects. Because the only thing varying in these specifications was space --- and, therefore, COVID-19 exposure --- this provides some evidence that COVID-19 directly reduced turnout.
-
-These data have two boundary conditions it is important to bear in mind. First, the onset of the pandemic and the timing of the Wisconsin primary did not allow time for a robust public messaging campaign about mail voting options and it may be the case that elections held after the initial phase of the pandemic will show a smaller effect. Second, it may be the case that the larger depressive effect for Black rather than for non-Black voters that we observe is a product of the relatively high segregation rate in Milwaukee compared to other American cities. Why polling place consolidation disproportionately depressed turnout among Black voters is unclear and should be the focus of future research based in other localities. This finding, nonetheless, raises concerns about racial representation in the November 2020 elections as jurisdictions shift to greater access to mail ballots.
-
-This note answers just one question related to the effect of COVID-19: given the pandemic, how do polling place closures affect turnout? Future research must consider the overall turnout and representational impacts of COVID-19 on this year's contests. It is worth noting that recently published research found that the April primary was not linked to any surge in COVID-19 in Wisconsin (Leung et al. \protect\hyperlink{ref-Leung2020}{2020}), which should allay concerns that polling places can only be kept open at the expense of public health. The primary elections in Milwaukee, Wisconsin, make one thing clear: even as many voters transition to vote-by-mail in the face of a pandemic, polling place consolidation can still have disenfranchising effects --- particularly for Black voters.
 
 \newpage
 
@@ -240,6 +255,12 @@ This note answers just one question related to the effect of COVID-19: given the
 \leavevmode\hypertarget{ref-Abadie2019}{}%
 Abadie, Alberto, and Jann Spiess. 2019. ``Robust Post-Matching Inference.'' \emph{Working Paper.}
 
+\leavevmode\hypertarget{ref-Bergman2015}{}%
+Bergman, Elizabeth. 2015. ``Voting Only by Mail Can Decrease Turnout. Or Increase It. Wait, What?'' \emph{Washington Post}, December 21, 2015. \url{https://www.washingtonpost.com/news/monkey-cage/wp/2015/12/21/voting-only-by-mail-can-decrease-or-increase-turnout-wait-what/}.
+
+\leavevmode\hypertarget{ref-Bergman2011}{}%
+Bergman, Elizabeth, and Philip Yates. 2011. ``Changing Election Methods: How Does Mandated Vote-by-Mail Affect Individual Registrants?'' \emph{Election Law Journal} 10 (2): 115--27.
+
 \leavevmode\hypertarget{ref-Brady2011}{}%
 Brady, Henry E., and John E. Mcnulty. 2011. ``Turning Out to Vote: The Costs of Finding and Getting to the Polling Place.'' \emph{American Political Science Review} 105 (1): 115--34. \url{https://doi.org/10.1017/S0003055410000596}.
 
@@ -249,8 +270,14 @@ Cantoni, Enrico. 2020. ``A Precinct Too Far: Turnout and Voting Costs.'' \emph{A
 \leavevmode\hypertarget{ref-Dyck2005}{}%
 Dyck, Joshua, and James Gimpel. 2005. ``Distance, Turnout, and the Convenience of Voting.'' \emph{Social Science Quarterly} 86 (3): 531--48.
 
+\leavevmode\hypertarget{ref-Elul2017}{}%
+Elul, Gabrielle, Sean Freeder, and Jacob Grumbach. 2017. ``The Effect of Mandatory Mail Ballot Elections in California.'' \emph{Election Law Journal} 16 (3): 397--415.
+
 \leavevmode\hypertarget{ref-Frey2018}{}%
 Frey, William H. 2018. ``Black-White Segregation Edges Downward Since 2000, Census Shows.'' Brookings. \url{https://www.brookings.edu/blog/the-avenue/2018/12/17/black-white-segregation-edges-downward-since-2000-census-shows/}.
+
+\leavevmode\hypertarget{ref-Gerber2013}{}%
+Gerber, Alan, Gregory Huber, and Seth Hill. 2013. ``Identifying the Effect of All-Mail Elections on Turnout: Staggered Reform in the Evergreen State.'' \emph{Political Science Research and Methods} 1 (1): 91--116.
 
 \leavevmode\hypertarget{ref-Gilbert2020}{}%
 Gilbert, Craig. 2020. ``How Two Communities on Milwaukee's North Shore Achieved Sky-High Levels of Absentee Voting Despite Coronavirus.'' \emph{Milwaukee Journal Sentinel}, April 10, 2020. \url{https://www.jsonline.com/story/news/politics/elections/2020/04/10/wisconsin-absentee-ballot-forms-sent-whitefish-bay-bayside-voters/5129125002/}.
@@ -258,8 +285,17 @@ Gilbert, Craig. 2020. ``How Two Communities on Milwaukee's North Shore Achieved 
 \leavevmode\hypertarget{ref-Gimpel2003}{}%
 Gimpel, James, and Jason Schuknecht. 2003. ``Political Participation and the Accessibility of the Ballot Box.'' \emph{Political Geography} 22: 471--88.
 
+\leavevmode\hypertarget{ref-Gronke2012}{}%
+Gronke, Paul, and Peter Miller. 2012. ``Voting by Mail and Turnout in Oregon: Revisiting Southwell and Burchett.'' \emph{American Politics Research} 40 (6): 976--97. \url{https://doi.org/10.1177/1532673X12457809}.
+
 \leavevmode\hypertarget{ref-Haspel2005}{}%
 Haspel, Moshe, and H. Gibbs Knotts. 2005. ``Location, Location, Location: Precinct Placement and the Costs of Voting.'' \emph{Journal of Politics} 67 (2): 560--73.
+
+\leavevmode\hypertarget{ref-Hayda2020}{}%
+Hayda, Julian. 2020. ``Wisconsin's COVID-19 Death Disparity Is 3rd Worst in America. Is Segregation to Blame?'' \emph{WUWM}, May 29, 2020. \url{https://www.wuwm.com/post/wisconsins-covid-19-death-disparity-3rd-worst-america-segregation-blame}.
+
+\leavevmode\hypertarget{ref-Henrickson2019}{}%
+Henrickson, Kevin E., and Erica H. Johnson. 2019. ``Increasing Voter Participation by Altering the Costs and Stakes of Voting*.'' \emph{Social Science Quarterly} 100 (3): 869--84. \url{https://doi.org/10.1111/ssqu.12583}.
 
 \leavevmode\hypertarget{ref-vanHolm2020}{}%
 Holm, Eric Joseph van, Christopher Wyczalkowski, and Prentiss Dantzler. 2020. ``Neighborhood Conditions and the Initial Outbreak of COVID-19: The Case of Louisiana.'' SSRN Scholarly Paper ID 3625990. Rochester, NY: Social Science Research Network. \url{https://doi.org/10.2139/ssrn.3625990}.
@@ -269,6 +305,9 @@ Kaplan, Ethan, and Haishan Yuan. 2020. ``Early Voting Laws, Voter Turnout, and P
 
 \leavevmode\hypertarget{ref-Keele2015}{}%
 Keele, Luke, Rocío Titiunik, and José R. Zubizarreta. 2015. ``Enhancing a Geographic Regression Discontinuity Design Through Matching to Estimate the Effect of Ballot Initiatives on Voter Turnout.'' \emph{Journal of the Royal Statistical Society: Series A (Statistics in Society)} 178 (1): 223--39. \url{https://doi.org/10.1111/rssa.12056}.
+
+\leavevmode\hypertarget{ref-Kousser2007}{}%
+Kousser, Thad, and Megan Mullin. 2007. ``Does Voting by Mail Increase Participation? Using Matching to Analyze a Natural Experiment.'' \emph{Political Analysis} 15 (4): 428--45. \url{http://www.jstor.org/stable/25791905}.
 
 \leavevmode\hypertarget{ref-Kropf2012}{}%
 Kropf, Martha E., and David C. Kimball. 2012. \emph{Helping America Vote: The Limits of Election Reform}. New York ; London: Routledge.
@@ -285,11 +324,11 @@ McNulty, John, Conor Dowling, and Margaret Ariotti. 2009. ``Driving Saints to Si
 \leavevmode\hypertarget{ref-Sekhon2009}{}%
 Sekhon, Jasjeet. 2009. ``Opiates for the Matches: Matching Methods for Causal Inference.'' \emph{Annual Review of Political Science} 12: 487--508.
 
-\leavevmode\hypertarget{ref-Sekhon2011}{}%
-Sekhon, Jasjeet S. 2011. ``Multivariate and Propensity Score Matching Software with Automated Balance Optimization: The Matching Package for R.'' \emph{Journal of Statistical Software} 42 (1): 1--52. \url{https://doi.org/10.18637/jss.v042.i07}.
-
 \leavevmode\hypertarget{ref-Stewart2010}{}%
 Stewart, Charles. 2010. ``Losing Votes by Mail.'' \emph{New York University Journal of Legislation and Public Policy} 13: 573--602.
+
+\leavevmode\hypertarget{ref-Viebeck2020}{}%
+Viebeck, Elise, Amy Gardner, Dan Simmons, and Jan M. Larson. 2020. ``Long Lines, Anger and Fear of Infection: Wisconsin Proceeds with Elections Under Court Order.'' \emph{Washington Post}, April 7, 2020. \url{https://www.washingtonpost.com/politics/long-lines-form-in-milwaukee-as-wisconsin-proceeds-with-elections-under-court-order/2020/04/07/93727b34-78c7-11ea-b6ff-597f170df8f8_story.html}.
 
 \leavevmode\hypertarget{ref-Wise2020}{}%
 Wise, David. 2020. ``Evers Calls for All Voters to Be Mailed Absentee Ballots \textbar{} WisPolitics.Com.'' \emph{WisPolitics}, March 27, 2020. \url{https://www.wispolitics.com/2020/evers-calls-for-all-voters-to-be-mailed-absentee-ballots/}.
