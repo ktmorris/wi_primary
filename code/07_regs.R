@@ -3,7 +3,7 @@ reg_data <- readRDS("./temp/reg_data_no_age.rds")
 roll <- readRDS("./temp/match_data.rds") %>% 
   select(-age)
 
-roll <- roll[complete.cases(roll), ] %>% 
+roll <- roll[complete.cases(select(roll, -share_car)), ] %>% 
   mutate(id = row_number())
 
 reg_data <- left_join(reg_data, roll, by = "id")
@@ -35,7 +35,7 @@ inter <- as.data.table(inter)[, .(weights = sum(weights)),
                               by = list(id, group, County, primary_20,
                                         primary_18, primary_16, white, black,
                                         latino, asian, income, college, dem,
-                                        rep, male, rate2)] %>% 
+                                        rep, male, rate2, share_car)] %>% 
   mutate(mke = id == group,
          black_mke = mke * black)
 
@@ -162,31 +162,31 @@ cints <- rbindlist(lapply(c((1 / 35.2),
   } else{
     mod <- lm.cluster(primary_20 ~ mke * black, data = inter, weights = inter$weights, cluster = inter$group)
   }
-  ci <- confint(mod)
   
-  nr <- nrow(ci)
+  h <- glht(mod, linfct = c("mkeTRUE + mkeTRUE:black = 2"))
   
-  j <- data.table(distance = m,
-                  estimate = mod[["lm_res"]][["coefficients"]][["mkeTRUE"]],
-                  lower = ci[2,1],
-                  upper = ci[2,2],
-                  type = "overall")
+  temp <- data.table(rowname = "black_add",
+                     `2.5 %` = confint(h)[["confint"]][[2]],
+                     `97.5 %` = confint(h)[["confint"]][[3]])
   
-  k <- data.table(distance = m,
-                  estimate = mod[["lm_res"]][["coefficients"]][["mkeTRUE:black"]],
-                  lower = ci[nr,1],
-                  upper = ci[nr,2],
-                  type = "black_add")
+  ci <- bind_rows(rownames_to_column(as.data.frame(confint(mod))), temp)
   
-  return(bind_rows(j, k))
+  colnames(ci) <- c("type", "lower", "upper")
+  
+  ci$estimate <- (ci$lower + ci$upper) / 2
+  ci$distance <- m
+  
+  return(ci %>% 
+           filter(type %in% c("mkeTRUE", "black_add")) %>% 
+           mutate(type = ifelse(type == "mke_TRUE", "overall", type)))
 }))
 
 saveRDS(cints, "./temp/cints_no_age_interaction.rds")
 
 ##############################################
 cints <- readRDS("./temp/cints_no_age_interaction.rds") %>% 
-  mutate(type = ifelse(type == "overall", "Effect for\nNon-Black Voters",
-                       "Additional Effect for\nBlack Voters"))
+  mutate(type = ifelse(type == "mkeTRUE", "Effect for\nNon-Black Voters",
+                       "Effect for\nBlack Voters"))
 
 cints$type <- relevel(as.factor(cints$type), ref = "Effect for\nNon-Black Voters")
 
@@ -198,9 +198,7 @@ plot <- ggplot(filter(cints)) +
   theme_bw() +
   labs(y = "Estimated Coefficient",
        x = "Maximum Distance Between Control and Treated Voters (Miles)",
-       caption = "Notes: 95% confidence bars shown.\n\"Effect for Non-Black Voters\" refers to the variable \"Lives in Milwaukee,\"
-while \"Additional Effect for Black Voters\" refers to \"Black × Lives in Milwaukee.\"
-The overall effect for Black voters is therefore the sum of both estimates.",
+       caption = "Notes: 95% confidence bars shown.",
        shape = "Group",
        linetype = "Group") +
   scale_y_continuous(labels = scales::percent, breaks = seq(-.15, .1, 0.05)) +

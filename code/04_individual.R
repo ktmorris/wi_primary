@@ -2,9 +2,26 @@ voters <- readRDS("./temp/mke_voters.rds") %>%
   filter(!is.na(Residence_Addresses_Longitude),
          !is.na(Residence_Addresses_Latitude),
          !(Residence_Addresses_City %in% c("Whitefish Bay", "Bayside")),
-         Voters_FIPS != 101) %>% 
+         Voters_FIPS != 101,
+         !(LALVOTERID %in% fread("temp/whaa.csv")$LALVOTERID)) %>% 
   mutate(Precinct = gsub("MT PLEASANT", "MOUNT PLEASANT", Precinct),
          Precinct = gsub(" WARD ", "$", Precinct))
+
+########## car ownership
+
+cars <- get_acs("tract", variables = c("no_cars" = "B08201_002"), summary_var = "B08201_001",
+                state = "WI") %>% 
+  mutate(share_car = 1 - (estimate / summary_est)) %>% 
+  select(GEOID, share_car)
+
+
+voters <- left_join(
+  voters %>% 
+    mutate(GEOID = paste0("55", str_pad(Voters_FIPS, width = 3, side = "left", pad = "0"),
+                          str_pad(Residence_Addresses_CensusTract, pad = "0", width = 6, side = "left"))),
+  cars
+)
+##########
 
 voters <- cSplit(voters, "Precinct", sep = "$", type.convert = F) %>% 
   mutate(Precinct_1 = ifelse(substring(Precinct_1, nchar(Precinct_1) - 2) == "VLG",
@@ -18,23 +35,8 @@ voters <- cSplit(voters, "Precinct", sep = "$", type.convert = F) %>%
                              Precinct_1),
          p2 = as.integer(Precinct_2))
 
-locs_20 <- fread("./temp/locs_20.csv") %>% 
-  mutate(V1_22 = as.integer(V1_2))
 
-
-voters <- left_join(voters, locs_20,
-                    by = c("Precinct_1" = "V1_1",
-                           "p2" = "V1_22"))
-#######################
-
-locs_16 <- fread("./temp/locs_16.csv") %>% 
-  mutate(V1_22 = as.integer(V1_2)) %>% 
-  rename(lat_16 = latitude,
-         long_16 = longitude)
-
-voters <- left_join(voters, locs_16,
-                    by = c("Precinct_1" = "V1_1",
-                           "p2" = "V1_22")) %>% 
+voters <- voters %>% 
   select(LALVOTERID, gender = Voters_Gender,
          age = Voters_Age,
          dob = Voters_BirthDate,
@@ -46,11 +48,8 @@ voters <- left_join(voters, locs_16,
          primary_16 = Presidential_Primary_2016_04_05,
          lat = Residence_Addresses_Latitude,
          long = Residence_Addresses_Longitude,
-         pp_lat_16 = lat_16,
-         pp_long_16 = long_16,
-         pp_lat_20 = latitude,
-         pp_long_20 = longitude,
-         city = Precinct_1)
+         city = Precinct_1,
+         share_car)
 ###############
 
 voters <- left_join(voters,
@@ -97,4 +96,4 @@ saveRDS(voters %>%
                  distance_border = distance_to_border,
                  white, black, latino, asian,
                  income, college, dem, rep,
-                 mke, male), "./temp/match_data.rds")
+                 mke, male, share_car), "./temp/match_data.rds")

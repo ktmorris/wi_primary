@@ -1,9 +1,9 @@
-This is XeTeX, Version 3.14159265-2.6-0.999992 (TeX Live 2020/W32TeX) (preloaded format=xelatex 2020.11.5)  19 NOV 2020 15:36
+This is XeTeX, Version 3.14159265-2.6-0.999992 (TeX Live 2020/W32TeX) (preloaded format=xelatex 2020.12.2)  6 DEC 2020 14:34
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
-**mke_turnout.tex
-(./mke_turnout.tex
+**mke_turnout-revised.tex
+(./mke_turnout-revised.tex
 LaTeX2e <2020-10-01> patch level 2
 L3 programming layer <2020-10-27> xparse <2020-03-03>
 (c:/Users/morrisk/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/base/article.cls
@@ -643,12 +643,12 @@ Package: makecell 2009/08/03 V0.1e Managing of Tab Column Heads and Cells
 \TeXr@lab=\toks33
 )
 \cslhangindent=\skip67
-(./mke_turnout.aux
+(./mke_turnout-revised.aux
 
 LaTeX Warning: Label `fig:map' multiply defined.
 
 )
-\openout1 = `mke_turnout.aux'.
+\openout1 = `mke_turnout-revised.aux'.
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 99.
 LaTeX Font Info:    ... okay on input line 99.
@@ -955,9 +955,9 @@ Package: gettitlestring 2019/12/15 v1.6 Cleanup title references (HO)
 LaTeX Info: Redefining \ref on input line 99.
 LaTeX Info: Redefining \pageref on input line 99.
 LaTeX Info: Redefining \nameref on input line 99.
-(./mke_turnout.out) (./mke_turnout.out)
+(./mke_turnout-revised.out) (./mke_turnout-revised.out)
 \@outlinefile=\write3
-\openout3 = `mke_turnout.out'.
+\openout3 = `mke_turnout-revised.out'.
 
 *geometry* driver: auto-detecting
 *geometry* detected driver: xetex
@@ -1060,20 +1060,21 @@ Underfull \hbox (badness 10000) in paragraph at lines 113--113
 [][] [][] [][] [] [][][][][] [] [][][][][][] [] [][][][][][][][][][] []
  []
 
-[1] [2] [3] [4]
-File: mke_turnout_files/figure-latex/map-1.pdf Graphic file (type pdf)
-<use mke_turnout_files/figure-latex/map-1.pdf>
-[5] [6] [7] [8] [9] (../temp/reg.tex
+[1] [2] [3] [4] [5]
+File: mke_turnout-revised_files/figure-latex/map-1.pdf Graphic file (type pdf)
+<use mke_turnout-revised_files/figure-latex/map-1.pdf>
+[6] [7] [8] [9] [10] (../temp/reg.tex
 LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(1)/m/n' will be
 (Font)              scaled to size 8.0pt on input line 35.
 LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(2)/m/n' will be
 (Font)              scaled to size 8.00073pt on input line 35.
 LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(3)/m/n' will be
 (Font)              scaled to size 7.99915pt on input line 35.
-) [10]
-File: mke_turnout_files/figure-latex/plot-1.pdf Graphic file (type pdf)
-<use mke_turnout_files/figure-latex/plot-1.pdf>
-[11] [12] [13]
+) [11]
+File: mke_turnout-revised_files/figure-latex/plot-1.pdf Graphic file (type pdf)
+
+<use mke_turnout-revised_files/figure-latex/plot-1.pdf>
+[12] [13] [14] [15]
 Underfull \hbox (badness 1221) in paragraph at lines 251--253
 [][]\TU/lmr/m/n/12 Bergman, Elizabeth. 2015. “Voting Only by Mail Can Decrease 
 Turnout. Or
@@ -1092,15 +1093,15 @@ Underfull \hbox (badness 10000) in paragraph at lines 251--253
 [][] [][] [][] [][]
  []
 
-[14] [15]
-Underfull \hbox (badness 10000) in paragraph at lines 323--325
+[16] [17] [18] [19]
+Underfull \hbox (badness 10000) in paragraph at lines 362--364
 [][][][] [][] [][] [][] [][][][][][][][][] [][] [][] [][] [][][][][][][][][] []
 [] [][][][][][][][] [][] [][][][] [][] [][][][][][][][][] [][] [][][][][] [][] 
 [][][][][] [][] [][][][][] [] [][][][] [] [][] []
  []
 
-[16] [17] (./mke_turnout.aux)
-Package rerunfilecheck Info: File `mke_turnout.out' has not changed.
+[20] (./mke_turnout-revised.aux)
+Package rerunfilecheck Info: File `mke_turnout-revised.out' has not changed.
 (rerunfilecheck)             Checksum: 7EAEC572AFC43AB379350421B9C44E6A;567.
 
 LaTeX Warning: There were multiply-defined labels.
@@ -1108,11 +1109,11 @@ LaTeX Warning: There were multiply-defined labels.
  ) 
 Here is how much of TeX's memory you used:
  18209 strings out of 479393
- 317705 string characters out of 5877794
- 787609 words of memory out of 5000000
+ 317913 string characters out of 5877794
+ 787636 words of memory out of 5000000
  37303 multiletter control sequences out of 15000+600000
  543558 words of font info for 94 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
- 94i,15n,118p,1549b,496s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 94i,15n,118p,1796b,496s stack positions out of 5000i,500n,10000p,200000b,80000s
 
-Output written on mke_turnout.pdf (18 pages).
+Output written on mke_turnout-revised.pdf (21 pages).

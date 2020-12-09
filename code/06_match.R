@@ -27,11 +27,11 @@
 # 
 # match_data <- match_data[complete.cases(match_data), ]
 # 
-# ids <- match_data %>% 
-#   mutate(id = row_number()) %>% 
+# ids <- match_data %>%
+#   mutate(id = row_number()) %>%
 #   select(id, LALVOTERID)
 # 
-# X <- match_data %>% 
+# X <- match_data %>%
 #   select(-LALVOTERID,
 #          -primary_20,
 #          -mke,
@@ -50,12 +50,12 @@
 
 ###############################
 
-roll <- select(readRDS("./temp/match_data.rds"), -age)
+roll <- select(readRDS("./temp/match_data.rds"), -age, -share_car)
 
 roll <- roll[complete.cases(roll), ] %>% 
   mutate(id = row_number())
 
-load("./temp/mout_wi_no_age.RData")
+load("./temp/mout_wi_no_age_old.RData")
 
 varnames <- c("primary_18", "primary_16", "white", "black",
               "latino", "asian", "income", "college", "dem",
@@ -86,7 +86,7 @@ for(i in c(1:length(balance$BeforeMatching))){
   PreQQmed <- unlist(c(PreQQmed, balance$BeforeMatching[[i]]$qqsummary[2]))
   PreQQmean <- unlist(c(PreQQmean, balance$BeforeMatching[[i]]$qqsummary[1]))
   PreQQmax <- unlist(c(PreQQmax, balance$BeforeMatching[[i]]$qqsummary[3]))
-  
+
   PostMean <- unlist(c(PostMean, balance$AfterMatching[[i]][4][1]))
   PostQQmed <- unlist(c(PostQQmed, balance$AfterMatching[[i]]$qqsummary[2]))
   PostQQmean <- unlist(c(PostQQmean, balance$AfterMatching[[i]]$qqsummary[1]))
@@ -111,13 +111,13 @@ df <- data.frame("TrMean" = TrMean,
          change_eqqmean = 1 - abs(PostQQmean / PreQQmean),
          change_eqqmax = 1 - abs(PostQQmax / PreQQmax)) %>%
   mutate_at(vars(TrMean, PreMean, TrMean2, PostMean), ~ comma(round(., 3), accuracy = .001)) %>%
-  mutate_at(vars(change_mean, change_eqqmed, change_eqqmean, change_eqqmax), ~ round(. * 100, 2)) %>% 
+  mutate_at(vars(change_mean, change_eqqmed, change_eqqmean, change_eqqmax), ~ round(. * 100, 2)) %>%
   filter(names != "voted_primary")
 
 
 ####
 
-df <- full_join(df, 
+df <- full_join(df,
                 fread("./raw_data/var_orders.csv"),
                 by = c("names" = "variable")) %>%
   arrange(order) %>%
@@ -125,11 +125,11 @@ df <- full_join(df,
   filter(!is.na(TrMean))
 
 
-df <- df %>% 
+df <- df %>%
   mutate_at(vars(TrMean, PreMean, TrMean2, PostMean),
-            ~ ifelse(name == "Income", dollar(round(as.numeric(gsub(",", "", .)))), .)) %>% 
+            ~ ifelse(name == "Income", dollar(round(as.numeric(gsub(",", "", .)))), .)) %>%
   mutate_at(vars(TrMean, PreMean, TrMean2, PostMean),
-            ~ ifelse(substring(name, 1, 1) == "%", percent(as.numeric(.), accuracy = .1), .)) %>% 
+            ~ ifelse(substring(name, 1, 1) == "%", percent(as.numeric(.), accuracy = .1), .)) %>%
   filter(!is.na(name))
 
 colnames(df) <- c("", "Treated", "Control", "Treated", "Control", "Mean Diff", "eQQ Med", "eQQ Mean", "eQQ Max")
@@ -137,8 +137,8 @@ colnames(df) <- c("", "Treated", "Control", "Treated", "Control", "Mean Diff", "
 saveRDS(df, "./temp/balance_table_full_no_age.rds")
 
 #########################
-j <- knitr::kable(df, booktabs = T, caption = "(\\#tab:full-bal) Balance Table", linesep = "") %>% 
-  add_header_above(c(" " = 1, "Means: Unmatched Data" = 2, "Means: Matched Data" = 2, "Percent Improvement" = 4), align = "c") %>% 
+j <- knitr::kable(df, booktabs = T, caption = "(\\#tab:full-bal) Balance Table", linesep = "") %>%
+  add_header_above(c(" " = 1, "Means: Unmatched Data" = 2, "Means: Matched Data" = 2, "Percent Improvement" = 4), align = "c") %>%
   kable_styling(latex_options = c("scale_down", "HOLD_position"))
 j
 
