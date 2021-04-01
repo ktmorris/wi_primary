@@ -1,0 +1,36 @@
+\begin{table}[H] \centering
+\caption{\label{tab:reg-table} Turnout in 2020 Primary}
+\label{}
+\resizebox{.8\textwidth}{!}{%
+\begin{tabular}{@{\extracolsep{5pt}}lccccc}
+\\[-1.8ex]\hline \\[-1.8ex]
+\\[-1.8ex] & \multicolumn{5}{c}{Turnout} \\
+\\[-1.8ex] & (1) & (2) & (3) & (4) & (5)\\
+\hline \\[-1.8ex]
+Lives in Milwaukee & $-$0.087$^{***}$ & $-$0.087$^{***}$ & $-$0.086$^{***}$ & $-$0.086$^{***}$ & $-$0.086$^{***}$ \\
+& (0.002) & (0.002) & (0.002) & (0.002) & (0.002) \\
+& & & & & \\
+Black &  & $-$0.036$^{***}$ & $-$0.032$^{***}$ & $-$0.029$^{***}$ & $-$0.032$^{***}$ \\
+&  & (0.004) & (0.006) & (0.006) & (0.006) \\
+& & & & & \\
+Black $\times$ Lives in Milwaukee &  &  & $-$0.014$^{**}$ & $-$0.013$^{**}$ & $-$0.014$^{**}$ \\
+&  &  & (0.007) & (0.007) & (0.007) \\
+& & & & & \\
+Positive Test Rate &  &  &  &  & $-$0.004 \\
+&  &  &  &  & (0.014) \\
+& & & & & \\
+Constant & 0.268$^{***}$ & 0.051$^{***}$ & 0.270$^{***}$ & 0.050$^{***}$ & 0.271$^{***}$ \\
+& (0.002) & (0.004) & (0.002) & (0.004) & (0.002) \\
+& & & & & \\
+\hline \\[-1.8ex]
+Includes Other Matched Covariates &  & X &  & X &  \\
+Includes County Fixed Effects & X & X & X & X & X \\
+\hline \\[-1.8ex]
+Observations & 181,181 & 181,181 & 181,181 & 181,181 & 181,181 \\
+R$^{2}$ & 0.011 & 0.357 & 0.012 & 0.357 & 0.012 \\
+Adjusted R$^{2}$ & 0.011 & 0.357 & 0.012 & 0.357 & 0.012 \\
+\hline \\[-1.8ex]
+\multicolumn{6}{l}{\scriptsize{\parbox{.999\linewidth}{\vspace{2pt}$^{***}p<0.01$, $^{**}p<0.05$, $^*p<0.1$. Robust standard errors (clustered by at level of match) in parentheses. \\Models 2 and 4 also include the covariates listed in Table \ref{tab:match}.}}}
+\end{tabular}
+}
+\end{table}

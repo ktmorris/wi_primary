@@ -1,52 +1,53 @@
-# ## this can be run locally or on NYU's HPC. Set option in next step
-# ## option allowed because of how long GenMatch can take
-# 
-# on_nyu <- F
-# 
-# if(on_nyu){
-#   library(Matching)
-#   library(data.table)
-#   library(snow)
-#   library(parallel)
-#   library(scales)
-#   library(kableExtra)
-#   library(tidyverse)
-#   
-#   setwd("/scratch/km3815/nyc_displ")
-#   
-#   NodeFile = Sys.getenv("MY_HOSTFILE")
-#   
-#   
-#   cl <- makeCluster(c(readLines(NodeFile)), type="SOCK")
-# }else{
-#   source("./code/misc/AutoCluster4.R")
-#   cl <- NCPUS(detectCores() - 1)
-# }
-# 
-# match_data <- select(readRDS("./temp/match_data.rds"), -age)
-# 
-# match_data <- match_data[complete.cases(match_data), ]
-# 
-# ids <- match_data %>%
-#   mutate(id = row_number()) %>%
-#   select(id, LALVOTERID)
-# 
-# X <- match_data %>%
-#   select(-LALVOTERID,
-#          -primary_20,
-#          -mke,
-#          -distance_border)
-# 
-# 
-# genout <- readRDS("./temp/wi_genout_no_age_1p.rds")
-# 
-# mout <- Matchby(Tr = match_data$mke, X = X,
-#                 by = c(X$primary_18,
-#                        X$primary_16,
-#                        X$dem,
-#                        X$rep), estimand = "ATT", Weight.matrix = genout, M = 2)
-# 
-# save(mout, file = "./temp/mout_wi_no_age.RData")
+## this can be run locally or on NYU's HPC. Set option in next step
+## option allowed because of how long GenMatch can take
+
+on_nyu <- F
+
+if(on_nyu){
+  library(Matching)
+  library(data.table)
+  library(snow)
+  library(parallel)
+  library(scales)
+  library(kableExtra)
+  library(tidyverse)
+
+  setwd("/scratch/km3815/nyc_displ")
+
+  NodeFile = Sys.getenv("MY_HOSTFILE")
+
+
+  cl <- makeCluster(c(readLines(NodeFile)), type="SOCK")
+}else{
+  source("./code/misc/AutoCluster4.R")
+  cl <- NCPUS(detectCores() - 1)
+}
+
+match_data <- select(readRDS("./temp/match_data.rds"), -age)
+
+match_data <- match_data[complete.cases(match_data), ]
+
+ids <- match_data %>%
+  mutate(id = row_number()) %>%
+  select(id, LALVOTERID)
+
+X <- match_data %>%
+  select(-LALVOTERID,
+         -primary_20,
+         -mke,
+         -distance_border)
+
+
+genout <- readRDS("./temp/wi_genout_no_age_1p.rds")
+
+mout <- Matchby(Tr = match_data$mke, X = X,
+                by = c(X$primary_18,
+                       X$primary_16,
+                       X$dem,
+                       X$rep), estimand = "ATT", Weight.matrix = genout, M = 2,
+                exact = c(T, T, rep(F, 12)))
+
+save(mout, file = "./temp/mout_wi_no_age.RData")
 
 ###############################
 

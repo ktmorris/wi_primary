@@ -33,5 +33,6 @@ genout <- GenMatch(Tr = match_data$mke,
                      select(-LALVOTERID,
                             -primary_20,
                             -mke,
-                            -distance_border), M = 1, pop.size = 150)
+                            -distance_border), M = 1, pop.size = 150,
+                   exact = c(T, T, rep(F, 12)))
 saveRDS(genout, "./temp/wi_genout_no_age_1p.rds")

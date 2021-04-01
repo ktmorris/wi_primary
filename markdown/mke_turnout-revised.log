@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.14159265-2.6-0.999992 (TeX Live 2020/W32TeX) (preloaded format=xelatex 2020.12.2)  6 DEC 2020 14:34
+This is XeTeX, Version 3.14159265-2.6-0.999992 (TeX Live 2020/W32TeX) (preloaded format=xelatex 2020.12.2)  12 DEC 2020 17:18
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -643,11 +643,7 @@ Package: makecell 2009/08/03 V0.1e Managing of Tab Column Heads and Cells
 \TeXr@lab=\toks33
 )
 \cslhangindent=\skip67
-(./mke_turnout-revised.aux
-
-LaTeX Warning: Label `fig:map' multiply defined.
-
-)
+(./mke_turnout-revised.aux)
 \openout1 = `mke_turnout-revised.aux'.
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 99.
@@ -1061,59 +1057,67 @@ Underfull \hbox (badness 10000) in paragraph at lines 113--113
  []
 
 [1] [2] [3] [4] [5]
+
+LaTeX Warning: Reference `fig:map' on page 6 undefined on input line 145.
+
+[6] [7]
+
+LaTeX Warning: Reference `fig:map' on page 8 undefined on input line 163.
+
+[8] [9] [10] [11] [12] [13]
+Underfull \hbox (badness 1221) in paragraph at lines 212--214
+[][]\TU/lmr/m/n/12 Bergman, Elizabeth. 2015. “Voting Only by Mail Can Decrease 
+Turnout. Or
+ []
+
+
+Underfull \hbox (badness 1874) in paragraph at lines 212--214
+\TU/lmr/m/n/12 Increase It. Wait, What?” \TU/lmr/m/it/12 Washington Post\TU/lmr
+/m/n/12 , December 21, 2015. []$[][][][][] []
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 212--214
+[] [] [][][] [] [][][][][][][][][][][][][][] [] [][][] [] [][][][] [] [][][][][
+][] [][] [][][][] [] [][] [] [][][][] [] [][] [] [][] [] [][][][][][] [][] [][]
+[][] [][] [][] [][]
+ []
+
+[14] [15] [16] [17]
+Underfull \hbox (badness 10000) in paragraph at lines 323--325
+[][][][] [][] [][] [][] [][][][][][][][][] [][] [][] [][] [][][][][][][][][] []
+[] [][][][][][][][] [][] [][][][] [][] [][][][][][][][][] [][] [][][][][] [][] 
+[][][][][] [][] [][][][][] [] [][][][] [] [][] []
+ []
+
+[18]
 File: mke_turnout-revised_files/figure-latex/map-1.pdf Graphic file (type pdf)
 <use mke_turnout-revised_files/figure-latex/map-1.pdf>
-[6] [7] [8] [9] [10] (../temp/reg.tex
+[19] [20] (../temp/reg.tex
 LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(1)/m/n' will be
 (Font)              scaled to size 8.0pt on input line 35.
 LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(2)/m/n' will be
 (Font)              scaled to size 8.00073pt on input line 35.
 LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(3)/m/n' will be
 (Font)              scaled to size 7.99915pt on input line 35.
-) [11]
+) [21]
 File: mke_turnout-revised_files/figure-latex/plot-1.pdf Graphic file (type pdf)
 
 <use mke_turnout-revised_files/figure-latex/plot-1.pdf>
-[12] [13] [14] [15]
-Underfull \hbox (badness 1221) in paragraph at lines 251--253
-[][]\TU/lmr/m/n/12 Bergman, Elizabeth. 2015. “Voting Only by Mail Can Decrease 
-Turnout. Or
- []
-
-
-Underfull \hbox (badness 1874) in paragraph at lines 251--253
-\TU/lmr/m/n/12 Increase It. Wait, What?” \TU/lmr/m/it/12 Washington Post\TU/lmr
-/m/n/12 , December 21, 2015. []$[][][][][] []
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 251--253
-[] [] [][][] [] [][][][][][][][][][][][][][] [] [][][] [] [][][][] [] [][][][][
-][] [][] [][][][] [] [][] [] [][][][] [] [][] [] [][] [] [][][][][][] [][] [][]
-[][] [][] [][] [][]
- []
-
-[16] [17] [18] [19]
-Underfull \hbox (badness 10000) in paragraph at lines 362--364
-[][][][] [][] [][] [][] [][][][][][][][][] [][] [][] [][] [][][][][][][][][] []
-[] [][][][][][][][] [][] [][][][] [][] [][][][][][][][][] [][] [][][][][] [][] 
-[][][][][] [][] [][][][][] [] [][][][] [] [][] []
- []
-
-[20] (./mke_turnout-revised.aux)
+[22] (./mke_turnout-revised.aux)
 Package rerunfilecheck Info: File `mke_turnout-revised.out' has not changed.
 (rerunfilecheck)             Checksum: 7EAEC572AFC43AB379350421B9C44E6A;567.
 
-LaTeX Warning: There were multiply-defined labels.
+LaTeX Warning: There were undefined references.
 
  ) 
 Here is how much of TeX's memory you used:
  18209 strings out of 479393
  317913 string characters out of 5877794
- 787636 words of memory out of 5000000
+ 780533 words of memory out of 5000000
  37303 multiletter control sequences out of 15000+600000
  543558 words of font info for 94 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
- 94i,15n,118p,1796b,496s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 94i,15n,118p,1798b,496s stack positions out of 5000i,500n,10000p,200000b,80000s
 
-Output written on mke_turnout-revised.pdf (21 pages).
+Output written on mke_turnout-revised.pdf (23 pages).
